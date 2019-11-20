@@ -30,8 +30,7 @@ namespace CS4540_LOT.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Admin()
         {
-            
-            return View(await _userManager.Users.ToListAsync());
+            return View(await _userManager.Users.OrderBy(o => o.NormalizedUserName).ToListAsync());
         }
 
 
@@ -42,7 +41,41 @@ namespace CS4540_LOT.Controllers
         {
             IdentityUser user = await _userManager.FindByNameAsync(Username);
             IdentityRole UsrRole = await _roleManager.FindByNameAsync(Role);
-            return null;
+
+
+            if (AddRemove.Equals("Add"))
+            {
+                if (Role.Equals("Barber"))
+                {
+                    // Create new Barber page
+                    //InstructorRelation instructor = _context.InstructorRelation.Where(o => o.Username == Username).FirstOrDefault();
+
+                    // add to customer
+                    //if (instructor == null) // create Instructor course.
+                    //{
+                    //    _context.InstructorRelation.Add(new InstructorRelation() { Username = Username });
+                    //    _context.SaveChanges();
+                    //}
+                }
+
+                await _userManager.AddToRoleAsync(user, UsrRole.Name);
+                return Json(new { success = true, errorMessage = "" });
+            }
+            else if (AddRemove.Equals("Remove"))
+            {
+                if (Role.Equals("Admin"))
+                {
+                    IList<IdentityUser> AdminUsers = await _userManager.GetUsersInRoleAsync("Admin");
+                    if (AdminUsers.Count <= 1)
+                    {
+                        return Json(new { success = false, errorMessage = "Can't Remove Last Admin from Database." });
+                    }
+                }
+                await _userManager.RemoveFromRoleAsync(user, UsrRole.Name);
+
+                return Json(new { success = true, errorMessage = "" });
+            }
+            return Json(new { success = false, errorMessage = "" });
         }
     }
 }

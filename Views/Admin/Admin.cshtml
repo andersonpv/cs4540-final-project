@@ -74,14 +74,14 @@
                         @if (await UserManager.IsInRoleAsync(item, "Barber"))
                         {
                             <div class="custom-control custom-switch">
-                                <input checked onclick="change_role(this, '@TempNameCB', '@Email', 'Chair' )" class="custom-control-input" type="checkbox" name="@TempNameCB'" id="@TempNameCB">
+                                <input checked onclick="change_role(this, '@TempNameCB', '@Email', 'Barber' )" class="custom-control-input" type="checkbox" name="@TempNameCB'" id="@TempNameCB">
                                 <label class="custom-control-label" for="@TempNameCB"></label>
                             </div>
                         }
                         else
                         {
                             <div class="custom-control custom-switch">
-                                <input onclick="change_role(this, '@TempNameCB', '@Email', 'Chair' )" class="custom-control-input" type="checkbox" name="@TempNameCB'" id="@TempNameCB">
+                                <input onclick="change_role(this, '@TempNameCB', '@Email', 'Barber' )" class="custom-control-input" type="checkbox" name="@TempNameCB'" id="@TempNameCB">
                                 <label class="custom-control-label" for="@TempNameCB"></label>
                             </div>
                         }
@@ -94,14 +94,14 @@
                         @if (await UserManager.IsInRoleAsync(item, "Customer"))
                         {
                             <div class="custom-control custom-switch">
-                                <input checked onclick="change_role(this, '@TempNameCB', '@Email', 'Instructor')" class="custom-control-input" type="checkbox" name="@TempNameCB" id="@TempNameCB">
+                                <input checked onclick="change_role(this, '@TempNameCB', '@Email', 'Customer')" class="custom-control-input" type="checkbox" name="@TempNameCB" id="@TempNameCB">
                                 <label class="custom-control-label" for="@TempNameCB"></label>
                             </div>
                         }
                         else
                         {
                             <div class="custom-control custom-switch">
-                                <input onclick="change_role(this, '@TempNameCB', '@Email', 'Instructor')" class="custom-control-input" type="checkbox" name="@TempNameCB" id="@TempNameCB">
+                                <input onclick="change_role(this, '@TempNameCB', '@Email', 'Customer')" class="custom-control-input" type="checkbox" name="@TempNameCB" id="@TempNameCB">
                                 <label class="custom-control-label" for="@TempNameCB"></label>
                             </div>
                         }

@@ -20,6 +20,7 @@ namespace cs4540_final_project.Areas.Identity
                         context.Configuration.GetConnectionString("UserRolesDBConnection")));
 
                 services.AddDefaultIdentity<IdentityUser>()
+                    .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<UserRolesDB>();
             });
         }

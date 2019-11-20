@@ -21,6 +21,9 @@ namespace cs4540_final_project
             {
                 IServiceProvider services = scope.ServiceProvider;
 
+                StoreContext storeContext = services.GetRequiredService<StoreContext>();
+                DbInitializer.InitializeAsync(storeContext, services).Wait();
+
                 UserRolesDB roleContext = services.GetRequiredService<UserRolesDB>();
                 DbInitializer.InitializeAsync(roleContext, services).Wait();
             }

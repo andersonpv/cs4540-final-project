@@ -11,7 +11,23 @@ namespace cs4540_final_project.Data
     public class DbInitializer
     {
 
-        public static async Task InitializeAsync(UserRolesDB context, IServiceProvider serviceProvider)
+        public static void Initialize(StoreContext context)
+        {
+            context.Database.Migrate();
+
+            // Look for any LO.
+            if (context.WorkerComment.Any())
+                return;   // DB has been seeded
+
+            // TODO: Initialize with Barber/comment data.
+
+            //foreach (WorkerComment s in comments)
+            //    context.WorkerComment.Add(s);
+
+            context.SaveChanges();
+        }
+
+            public static async Task InitializeAsync(UserRolesDB context, IServiceProvider serviceProvider)
         {
             context.Database.Migrate();
 

@@ -61,9 +61,9 @@ namespace cs4540_final_project.Data
             {
                 Id = "1",
                 UserName = "Barber@RazorSharp.com",
-                NormalizedUserName = "BARBER01@RAZORSHARP.COM",
-                Email = "Barber01@RazorSharp.com",
-                NormalizedEmail = "BARBER01@RAZORSHARP.COM",
+                NormalizedUserName = "BARBER@RAZORSHARP.COM",
+                Email = "Barber@RazorSharp.com",
+                NormalizedEmail = "BARBER@RAZORSHARP.COM",
                 EmailConfirmed = true,
             };
 
@@ -77,10 +77,10 @@ namespace cs4540_final_project.Data
             user = new IdentityUser
             {
                 Id = "2",
-                UserName = "Customer01@gmail.com",
-                NormalizedUserName = "BARBER02@RAZORSHARP.COM",
-                Email = "Barber02@RazorSharp.com",
-                NormalizedEmail = "BARBER02@RAZORSHARP.COM",
+                UserName = "Customer@gmail.com",
+                NormalizedUserName = "CUSTOMER@GMAIL.COM",
+                Email = "Customer@gmail.com",
+                NormalizedEmail = "CUSTOMER@GMAIL.COM",
                 EmailConfirmed = true,
             };
 
@@ -96,7 +96,7 @@ namespace cs4540_final_project.Data
                 Id = "3",
                 UserName = "Admin@RazorSharp.com",
                 NormalizedUserName = "ADMIN@RAZORSHARP.COM",
-                Email = "admin@RazorSharp.com",
+                Email = "Admin@RazorSharp.com",
                 NormalizedEmail = "ADMIN@RAZORSHARP.COM",
                 EmailConfirmed = true,
             };

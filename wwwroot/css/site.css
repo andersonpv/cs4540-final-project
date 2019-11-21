@@ -2,55 +2,126 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
+
+.navbar {
+    margin-bottom: 0 !important;
+}
+
+nav {
+    position: absolute !important;
+    z-index: 3;
+    width: 100%;
+}
+
+.navbar-brand {
+    margin-left: 50px;
+    font-size: 30px;
+}
+
+.scrolled-nav-bar.scrolled {
+    background-color: #333 !important;
+    transition: background-color 200ms linear;
+}
+
+.nav-items {
+    padding: 18px 0;
+}
+
+.nav-item {
+    padding: 0 10px;
+    font-size: 18px;
+}
+
+.navbar-nav {
+    margin-right: 0px;
+}
+
+.nav-link {
+    border: 3px solid #fff;
+    border-radius: 3px;
+}
+
+    .nav-link:hover {
+        background: #333;
+        border-color: gray;
+        transition: .5s;
+    }
+
+    .nav-link:hover {
+        color: lightgray !important;
+    }
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    font-size: 14px;
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+@media (max-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+
+    nav-items {
+        padding: 0;
+    }
+
+    .navbar-nav {
+        margin-right: 0;
+    }
+
+    .navbar-brand {
+        margin-left: 0;
+    }
+
+    .nav-link {
+        border: 0;
+    }
+
+    .footer-details {
+        flex-direction: column;
+        text-align: center;
+    }
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+/* Change container's padding and margin */
+.container {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+    padding: 0;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+
+footer {
+    background: #333;
+    color: white;
+    padding-top: 50px;
+}
+
+.footer-details {
+    display: flex;
+    width: 70%;
+    margin: auto;
+    justify-content: space-around;
 }

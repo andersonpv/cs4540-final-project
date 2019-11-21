@@ -17,7 +17,7 @@ namespace cs4540_final_project.Areas.Identity
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<UserRolesDB>(options =>
                     options.UseSqlServer(
-                        context.Configuration.GetConnectionString("UserRolesDBConnection")));
+                        context.Configuration.GetConnectionString("DefaultConnection")));
 
                 services.AddDefaultIdentity<IdentityUser>()
                     .AddRoles<IdentityRole>()

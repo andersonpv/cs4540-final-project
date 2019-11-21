@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,28 +11,12 @@ namespace cs4540_final_project.Data
 {
     public class DbInitializer
     {
-
-        public static void Initialize(StoreContext context)
+        public static async Task InitializeAsync(StoreContext StoreContext, UserRolesDB UserContext, IServiceProvider serviceProvider)
         {
-            context.Database.Migrate();
+            UserContext.Database.Migrate();
 
-            // Look for any LO.
-            if (context.WorkerComment.Any())
-                return;   // DB has been seeded
-
-            // TODO: Initialize with Barber/comment data.
-
-            //foreach (WorkerComment s in comments)
-            //    context.WorkerComment.Add(s);
-
-            context.SaveChanges();
-        }
-
-            public static async Task InitializeAsync(UserRolesDB context, IServiceProvider serviceProvider)
-        {
-            context.Database.Migrate();
-
-            if (context.Users.Any())
+            // Initialize user database
+            if (UserContext.Users.Any())
             {
                 return;   // DB has been seeded
             }
@@ -57,7 +42,7 @@ namespace cs4540_final_project.Data
             string UserPassword = "123ABC!@#def";
 
             // Create user Barber01
-            IdentityUser user = new IdentityUser
+            IdentityUser barber = new IdentityUser
             {
                 Id = "1",
                 UserName = "Barber@RazorSharp.com",
@@ -67,14 +52,14 @@ namespace cs4540_final_project.Data
                 EmailConfirmed = true,
             };
 
-            IdentityResult createUser = await userManager.CreateAsync(user, UserPassword);
+            IdentityResult createUser = await userManager.CreateAsync(barber, UserPassword);
             if (createUser.Succeeded)
             {
-                await userManager.AddToRoleAsync(user, "Barber");
+                await userManager.AddToRoleAsync(barber, "Barber");
             }
 
             // Create user Customer
-            user = new IdentityUser
+            IdentityUser customer = new IdentityUser
             {
                 Id = "2",
                 UserName = "Customer@gmail.com",
@@ -84,14 +69,14 @@ namespace cs4540_final_project.Data
                 EmailConfirmed = true,
             };
 
-            IdentityResult createUser2 = await userManager.CreateAsync(user, UserPassword);
+            IdentityResult createUser2 = await userManager.CreateAsync(customer, UserPassword);
             if (createUser2.Succeeded)
             {
-                await userManager.AddToRoleAsync(user, "Customer");
+                await userManager.AddToRoleAsync(customer, "Customer");
             }
 
             // Create user Admin
-            user = new IdentityUser
+            customer = new IdentityUser
             {
                 Id = "3",
                 UserName = "Admin@RazorSharp.com",
@@ -101,11 +86,33 @@ namespace cs4540_final_project.Data
                 EmailConfirmed = true,
             };
 
-            IdentityResult createUser3 = await userManager.CreateAsync(user, UserPassword);
+            IdentityResult createUser3 = await userManager.CreateAsync(customer, UserPassword);
             if (createUser3.Succeeded)
             {
-                await userManager.AddToRoleAsync(user, "Admin");
+                await userManager.AddToRoleAsync(customer, "Admin");
             }
+
+
+            // Initialize Store Database
+
+            WorkerComment comment = new WorkerComment()
+            {
+                Comment = "Test Comment",
+                LastUpdated = DateTime.UtcNow.ToLocalTime(),
+            };
+
+            Worker worker = new Worker()
+            {
+                User = barber,
+                Job = "Barber",
+                Name = "Bob Smith",
+                Services = "Haircut, Bear Trim, Lineup",
+                WorkerComments = new List<WorkerComment>() { comment },
+            };
+
+            StoreContext.Worker.Add(worker);
+
+            StoreContext.SaveChanges();
         }
     }
 }

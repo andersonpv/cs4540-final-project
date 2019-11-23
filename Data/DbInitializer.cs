@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,9 +12,13 @@ namespace cs4540_final_project.Data
 {
     public class DbInitializer
     {
-        public static async Task InitializeAsync(UserRolesDB context, IServiceProvider serviceProvider)
+        public static async Task InitializeAsync(UserRolesDB context, WorkerContext workerContext, IServiceProvider serviceProvider)
         {
+            context.Database.EnsureDeleted();
+            workerContext.Database.EnsureDeleted();
+
             context.Database.Migrate();
+            workerContext.Database.Migrate();
 
             if (context.Users.Any())
             {
@@ -49,6 +55,21 @@ namespace cs4540_final_project.Data
                 NormalizedEmail = "BARBER@RAZORSHARP.COM",
                 EmailConfirmed = true,
             };
+
+            Worker barber01 = new Worker()
+            {
+                User = user,
+                Job = "Barber",
+                Schedule = new List<DaySchedule>
+                {
+                    new DaySchedule { dateTime = new DateTime(2019, 11, 20), Nine = true, NineThirty = true, Ten = true },
+                    new DaySchedule { dateTime = new DateTime(2019, 12, 5), Twelve = true, TwelveThirty = true, One = true },
+                    new DaySchedule { dateTime = new DateTime(2018, 1, 5), Four = true, FourThirty = true }
+                }
+            };
+            workerContext.Add(barber01);
+            workerContext.SaveChanges();
+            
 
             IdentityResult createUser = await userManager.CreateAsync(user, UserPassword);
             if (createUser.Succeeded)

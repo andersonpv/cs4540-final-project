@@ -6,6 +6,13 @@
     <RootNamespace>cs4540_final_project</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\Worker\20191122222322_initialWorkerMigration.cs" />
+    <Compile Remove="Migrations\Worker\20191122222322_initialWorkerMigration.Designer.cs" />
+    <Compile Remove="Migrations\Worker\20191123033753_addedDateTime.cs" />
+    <Compile Remove="Migrations\Worker\20191123033753_addedDateTime.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />

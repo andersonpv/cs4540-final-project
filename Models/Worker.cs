@@ -10,6 +10,9 @@ namespace cs4540_final_project.Models
  */
     public class Worker
     {
+        public int ID { get; set; }
+
+
         [ForeignKey("UserId")]
         public IdentityUser User { get; set; }
 
@@ -20,10 +23,11 @@ namespace cs4540_final_project.Models
         public string Name { get; set; }
 
         // What services the worker provides (i.e. beard, haircut, etc)
-        public ICollection<string> Services { get; set; }
+        public string Services { get; set; }
 
         public ICollection<DaySchedule> Schedule { get; set; }
 
-       // ICollection<Comment> Reviews { get; set; }
+        // ICollection<Comment> Reviews { get; set; }
     }
 }
+

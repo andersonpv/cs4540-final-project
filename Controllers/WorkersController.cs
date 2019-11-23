@@ -42,7 +42,7 @@ namespace cs4540_final_project.Controllers
 
             return View(worker);
         }
-
+        
         // GET: Workers/Create
         public IActionResult Create()
         {
@@ -64,7 +64,7 @@ namespace cs4540_final_project.Controllers
             }
             return View(worker);
         }
-
+        
         // GET: Workers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

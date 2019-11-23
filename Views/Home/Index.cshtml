@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<cs4540_final_project.Models.Worker>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -24,76 +25,25 @@
 
     <!-- Barbers container-->
     <div class="barbers card-group">
-        <!-- Barber card-->
-        <div class="barbers-container">
-            <div class="pic-container">
-                <img src="~/images/profile-pic.jpg" class="profile" alt="profile pic" width="128" height="128" />
+
+        @foreach (var item in Model)
+        {
+            <!-- Barber card-->
+            <div class="barbers-container">
+                <div class="pic-container">
+                    <img src="~/images/profile-pic.jpg" class="profile" alt="profile pic" width="128" height="128" />
+                </div>
+                <div class="profile-name">
+                    @item.Name
+                </div>
+                <div class="rating">
+                    <p>4.3 <br /> XXXX </p>
+                </div>
+                <button class="profile-btn">Profile</button>
+                <button class="book-now-btn">Book Now</button>
             </div>
-            <div class="profile-name">
-                Anderson Porta
-            </div>
-            <div class="rating">
-                <p>4.3 <br /> XXXX </p>
-            </div>
-            <button class="profile-btn">Profile</button>
-            <button class="book-now-btn">Book Now</button>
-        </div>
-        <!-- Barber card-->
-        <div class="barbers-container">
-            <div class="pic-container">
-                <img src="~/images/profile-pic.jpg" class="profile" alt="profile pic" width="128" height="128" />
-            </div>
-            <div class="profile-name">
-                Anderson Porta
-            </div>
-            <div class="rating">
-                <p>4.3 <br /> XXXX </p>
-            </div>
-            <button class="profile-btn">Profile</button>
-            <button class="book-now-btn">Book Now</button>
-        </div>
-        <!-- Barber card-->
-        <div class="barbers-container">
-            <div class="pic-container">
-                <img src="~/images/profile-pic.jpg" class="profile" alt="profile pic" width="128" height="128" />
-            </div>
-            <div class="profile-name">
-                Anderson Porta
-            </div>
-            <div class="rating">
-                <p>4.3 <br /> XXXX </p>
-            </div>
-            <button class="profile-btn">Profile</button>
-            <button class="book-now-btn">Book Now</button>
-        </div>
-        <!-- Barber card-->
-        <div class="barbers-container">
-            <div class="pic-container">
-                <img src="~/images/profile-pic.jpg" class="profile" alt="profile pic" width="128" height="128" />
-            </div>
-            <div class="profile-name">
-                Anderson Porta
-            </div>
-            <div class="rating">
-                <p>4.3 <br /> XXXX </p>
-            </div>
-            <button class="profile-btn">Profile</button>
-            <button class="book-now-btn">Book Now</button>
-        </div>
-        <!-- Barber card-->
-        <div class="barbers-container">
-            <div class="pic-container">
-                <img src="~/images/profile-pic.jpg" class="profile" alt="profile pic" width="128" height="128" />
-            </div>
-            <div class="profile-name">
-                Anderson Porta
-            </div>
-            <div class="rating">
-                <p>4.3 <br /> XXXX </p>
-            </div>
-            <button class="profile-btn">Profile</button>
-            <button class="book-now-btn">Book Now</button>
-        </div>
+        }
+
     </div>
 </div>
 

@@ -58,6 +58,9 @@ namespace cs4540_final_project.Data
 
             Worker barber01 = new Worker()
             {
+                Name = "Dan Smith",
+                Services = "Haircuts, Beards",
+                Description = "Barber for 8 years professionally.",
                 User = user,
                 Job = "Barber",
                 Schedule = new List<DaySchedule>

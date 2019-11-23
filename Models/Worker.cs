@@ -25,6 +25,9 @@ namespace cs4540_final_project.Models
         // What services the worker provides (i.e. beard, haircut, etc)
         public string Services { get; set; }
 
+        // Description
+        public string Description { get; set; }
+
         public ICollection<DaySchedule> Schedule { get; set; }
 
         // ICollection<Comment> Reviews { get; set; }

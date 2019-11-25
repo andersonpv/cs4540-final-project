@@ -1,0 +1,61 @@
+﻿body {
+}
+
+.intro-section {
+    background-image: url("../images/profile-page-pic2.jpg");
+    /*background-color: #333;*/
+    width: 100%;
+    height: 767px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    z-index: 1;
+}
+
+.intro-text {
+    width: 50%;
+    position: relative;
+    float: left;
+    top: 60%;
+    left: 50%;
+    transform: translate(-60%, -80%);
+}
+
+.intro-section h1 {
+    font-weight: 700;
+    font-size: 68px;
+    color: #fff;
+}
+
+.intro-section h3 {
+    color: white;
+    font-family: Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+}
+
+.book-now-btn {
+    border: 1px solid #fff;
+    padding: 10px 25px;
+    color: #fff !important;
+    border-radius: 3px;
+    font-family: sans-serif;
+    cursor: pointer;
+    margin-top: 15px;
+    margin-bottom: 60px;
+    font-family: 'Montserrat', sans-serif;
+    background: transparent;
+    display: inline-block;
+}
+
+    .book-now-btn:hover {
+        color: #333 !important;
+        background: #fff;
+        transition: .5s;
+    }
+
+@media only screen and (max-width: 810px) {
+    .intro-text {
+        top: 70% !important;
+        width: 70%;
+    }
+}

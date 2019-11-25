@@ -91,8 +91,10 @@
     line-height: 21px;
 }
 
-button {
-    margin-left: 10px 0 40px 0;
+.button-link {
+    margin: 10px 0 40px 0;
+    display: inline-block;
+    text-decoration: none;
 }
 
 .profile-btn, .book-now-btn {

@@ -37,10 +37,10 @@
                     @item.Name
                 </div>
                 <div class="rating">
-                    <p>4.3 <br /> XXXX </p>
+                    <p>Specialties: @item.Services</p>
                 </div>
-                <button class="profile-btn">Profile</button>
-                <button class="book-now-btn">Book Now</button>
+                <a class="button-link profile-btn" asp-route-id="@item.ID" asp-controller="Workers" asp-action="Details">Profile</a>
+                <a class="button-link book-now-btn" asp-route-id="@item.ID" asp-controller="Workers" asp-action="Details">Book Now</a>
             </div>
         }
 

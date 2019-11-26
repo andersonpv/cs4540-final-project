@@ -1,4 +1,7 @@
 ﻿@model cs4540_final_project.Models.Worker
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Details";
@@ -15,8 +18,15 @@
         <h3>@Html.DisplayNameFor(model => model.Job): @Html.DisplayFor(model => model.Job)</h3>
         <h3>@Html.DisplayNameFor(model => model.Services): @Html.DisplayFor(model => model.Services)</h3>
         <h3> @Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)</h3>
-        <a class="button-link book-now-btn">Book Now</a>
 
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a class="button-link book-now-btn" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
+        }
+        else
+        {
+            <a class="button-link book-now-btn">Book Now</a>
+        }
     </div>
 </div>
 

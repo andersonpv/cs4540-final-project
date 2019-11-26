@@ -35,6 +35,26 @@
     margin: auto;
 }
 
+.link-btn {
+    border: 1px solid #fff;
+    padding: 10px 25px;
+    color: #fff !important;
+    border-radius: 3px;
+    font-family: sans-serif;
+    cursor: pointer;
+    /*margin-top: 5px;
+    margin-bottom: 5px;*/
+    font-family: 'Montserrat', sans-serif;
+    background: transparent;
+    display: inline-block;
+}
+
+    .link-btn:hover {
+        color: #333 !important;
+        background: #fff;
+        transition: .5s;
+    }
+
 @media screen and (max-width: 1279px) {
     .element-container {
         width: 60%;
@@ -54,4 +74,4 @@
         padding-right: 5%;
     }
 }
-}
+

@@ -121,3 +121,17 @@
         background: #03bfbc;
         transition: .5s;
     }
+
+@media only screen and (max-width: 810px) {
+    .intro-text {
+        top: 70% !important;
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .intro-text {
+        top: 80% !important;
+        width: 70%;
+    }
+}

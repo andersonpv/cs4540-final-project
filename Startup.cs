@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using cs4540_final_project.Models;
+using cs4540_final_project.Data;
 
 namespace cs4540_final_project
 {
@@ -36,8 +36,8 @@ namespace cs4540_final_project
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddDbContext<StoreContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<WorkerContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("WorkerContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,14 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using cs4540_final_project.Models;
+using cs4540_final_project.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace cs4540_final_project.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly WorkerContext _context;
+
+        public HomeController(WorkerContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        // GET: Workers
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Worker.ToListAsync());
         }
 
         public IActionResult Privacy()

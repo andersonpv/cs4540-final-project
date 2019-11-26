@@ -1,0 +1,77 @@
+﻿body {
+}
+
+
+.intro-section {
+    background-image: url("../images/login-background.jpg");
+    /*background-color: #333;*/
+    width: 100%;
+    height: 767px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    z-index: 1;
+    color: white;
+    padding-top: 200px;
+    /*background: #333;*/
+}
+
+.element-container {
+    background-color: #393e46;
+    width: 30%;
+    margin: auto;
+    padding: 60px;
+}
+
+.title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 50px
+}
+
+.login-section {
+    /*width: 20%;*/
+    margin: auto;
+}
+
+.link-btn {
+    border: 1px solid #fff;
+    padding: 10px 25px;
+    color: #fff !important;
+    border-radius: 3px;
+    font-family: sans-serif;
+    cursor: pointer;
+    /*margin-top: 5px;
+    margin-bottom: 5px;*/
+    font-family: 'Montserrat', sans-serif;
+    background: transparent;
+    display: inline-block;
+}
+
+    .link-btn:hover {
+        color: #333 !important;
+        background: #fff;
+        transition: .5s;
+    }
+
+@media screen and (max-width: 1279px) {
+    .element-container {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 999px) {
+    .element-container {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .element-container {
+        width: 90%;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}
+

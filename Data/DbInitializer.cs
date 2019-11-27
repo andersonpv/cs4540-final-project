@@ -14,8 +14,8 @@ namespace cs4540_final_project.Data
     {
         public static async Task InitializeAsync(UserRolesDB context, WorkerContext workerContext, IServiceProvider serviceProvider)
         {
-            //context.Database.EnsureDeleted();
-            //workerContext.Database.EnsureDeleted();
+            context.Database.EnsureDeleted();
+            workerContext.Database.EnsureDeleted();
 
             context.Database.Migrate();
             workerContext.Database.Migrate();
@@ -44,6 +44,7 @@ namespace cs4540_final_project.Data
                 .GetRequiredService<UserManager<IdentityUser>>();
 
             string UserPassword = "123ABC!@#def";
+
 
             // Create user Barber01
             IdentityUser user = new IdentityUser
@@ -77,6 +78,14 @@ namespace cs4540_final_project.Data
                 await userManager.AddToRoleAsync(user, "Barber");
             }
 
+            List<WorkerComment> barber01Comments = new List<WorkerComment>
+            {
+                new WorkerComment() { Comment = "Good Job.", StarRating = 3, Worker= barber01, LastUpdated = DateTime.UtcNow.ToLocalTime() },
+                new WorkerComment() { Comment = "Decent Job.", StarRating = 3,Worker= barber01, LastUpdated = DateTime.UtcNow.ToLocalTime() },
+                new WorkerComment() { Comment = "Terrible Job.", StarRating = 1,Worker= barber01, LastUpdated = DateTime.UtcNow.ToLocalTime() }
+            };
+            foreach (WorkerComment s in barber01Comments)
+                workerContext.WorkerComment.Add(s);
 
             // Create user Barber02
             IdentityUser user2 = new IdentityUser
@@ -103,18 +112,24 @@ namespace cs4540_final_project.Data
                 }
             };
             workerContext.Add(barber02);
-            workerContext.SaveChanges();
             IdentityResult createUser4 = await userManager.CreateAsync(user2, UserPassword);
             if (createUser4.Succeeded)
             {
                 await userManager.AddToRoleAsync(user2, "Barber");
             }
 
+            WorkerComment[] barber02Comments = new WorkerComment[]
+            {
+                new WorkerComment() { Comment = "Good Job!", StarRating = 5, Worker = barber02, LastUpdated = DateTime.UtcNow.ToLocalTime() },
+                new WorkerComment() { Comment = "Decent Job.", StarRating = 3, Worker = barber02, LastUpdated = DateTime.UtcNow.ToLocalTime() },
+                new WorkerComment() { Comment = "Terrible Job.", StarRating = 1, Worker = barber02 , LastUpdated = DateTime.UtcNow.ToLocalTime() }
+            };
+            foreach (WorkerComment s in barber02Comments)
+                workerContext.WorkerComment.Add(s);
 
             // Create user Barber03
             IdentityUser user3 = new IdentityUser
             {
-                Id = "3",
                 UserName = "Barber3@RazorSharp.com",
                 NormalizedUserName = "BARBER3@RAZORSHARP.COM",
                 Email = "Barber3@RazorSharp.com",
@@ -127,7 +142,6 @@ namespace cs4540_final_project.Data
                 Services = "Haircuts/hair styling, beards, nails",
                 Description = "Barber for 9 years.",
                 User = user3,
-                Job = "Barber, Hairstylist",
                 Schedule = new List<DaySchedule>
                 {
                     new DaySchedule { dateTime = new DateTime(2019, 11, 22), Nine = true, NineThirty = true, Ten = true, ElevenThirty = true},
@@ -136,36 +150,23 @@ namespace cs4540_final_project.Data
                 }
             };
             workerContext.Add(barber03);
-            workerContext.SaveChanges();
             IdentityResult createUser5 = await userManager.CreateAsync(user3, UserPassword);
             if (createUser5.Succeeded)
             {
                 await userManager.AddToRoleAsync(user3, "Barber");
             }
-
-            WorkerComment GoodComment = new WorkerComment()
+            WorkerComment[] barber03Comments = new WorkerComment[]
             {
-                Comment = "Good Job!",
-                StarRating = 5,
-                Worker = barber01,
-                LastUpdated = DateTime.UtcNow.ToLocalTime(),
+                new WorkerComment() { Comment = "Good Job!", StarRating = 5, Worker = barber03, LastUpdated = DateTime.UtcNow.ToLocalTime() },
+                new WorkerComment() { Comment = "Decent Job.", StarRating = 3, Worker = barber03, LastUpdated = DateTime.UtcNow.ToLocalTime() },
+                new WorkerComment() { Comment = "Terrible Job.", StarRating = 1, Worker = barber03 , LastUpdated = DateTime.UtcNow.ToLocalTime() }
             };
+            foreach (WorkerComment s in barber03Comments)
+                workerContext.WorkerComment.Add(s);
 
-            WorkerComment DecentComment = new WorkerComment()
-            {
-                Comment = "Decent Job.",
-                StarRating = 3,
-                Worker = barber01,
-                LastUpdated = DateTime.UtcNow.ToLocalTime(),
-            };
 
-            WorkerComment TerribleComment = new WorkerComment()
-            {
-                Comment = "Terrible Job.",
-                StarRating = 1,
-                Worker = barber01,
-                LastUpdated = DateTime.UtcNow.ToLocalTime(),
-            };
+
+
 
             // Create user Customer
             user = new IdentityUser
@@ -200,6 +201,8 @@ namespace cs4540_final_project.Data
             {
                 await userManager.AddToRoleAsync(user, "Admin");
             }
+
+            workerContext.SaveChanges();
         }
     }
 }

@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace cs4540_final_project.Migrations.Worker
+namespace cs4540_final_project.Migrations
 {
-    public partial class initialWorkerContext : Migration
+    public partial class recreateMigraion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,7 +42,8 @@ namespace cs4540_final_project.Migrations.Worker
                     UserId = table.Column<string>(nullable: true),
                     Job = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    Services = table.Column<string>(nullable: true)
+                    Services = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -91,6 +92,28 @@ namespace cs4540_final_project.Migrations.Worker
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "WorkerComment",
+                columns: table => new
+                {
+                    WorkerCommentID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Comment = table.Column<string>(nullable: true),
+                    StarRating = table.Column<int>(nullable: false),
+                    WorkerID = table.Column<int>(nullable: false),
+                    LastUpdated = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkerComment", x => x.WorkerCommentID);
+                    table.ForeignKey(
+                        name: "FK_WorkerComment_Worker_WorkerID",
+                        column: x => x.WorkerID,
+                        principalTable: "Worker",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_DaySchedule_WorkerID",
                 table: "DaySchedule",
@@ -100,12 +123,20 @@ namespace cs4540_final_project.Migrations.Worker
                 name: "IX_Worker_UserId",
                 table: "Worker",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkerComment_WorkerID",
+                table: "WorkerComment",
+                column: "WorkerID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "DaySchedule");
+
+            migrationBuilder.DropTable(
+                name: "WorkerComment");
 
             migrationBuilder.DropTable(
                 name: "Worker");

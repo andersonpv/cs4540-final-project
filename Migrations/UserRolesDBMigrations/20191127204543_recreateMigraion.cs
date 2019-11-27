@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace cs4540_final_project.Migrations
+namespace cs4540_final_project.Migrations.UserRolesDBMigrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class recreateMigraion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

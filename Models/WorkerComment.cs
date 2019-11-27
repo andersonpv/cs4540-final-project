@@ -9,13 +9,14 @@ namespace cs4540_final_project.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int WorkerCommentId { get; set; }
+        public int WorkerCommentID { get; set; }
 
         public string Comment { get; set; }
 
-        [DisplayName("Worker")]
-        public int WorkerID { get; set; }
+        public int StarRating { get; set; }
         
+        public Worker Worker { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime LastUpdated { get; set; }
     }

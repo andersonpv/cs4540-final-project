@@ -30,7 +30,7 @@ namespace cs4540_final_project.Models
 
         public ICollection<DaySchedule> Schedule { get; set; }
 
-        // ICollection<Comment> Reviews { get; set; }
+        public ICollection<WorkerComment> Reviews { get; set; }
     }
 }
 

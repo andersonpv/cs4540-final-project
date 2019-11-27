@@ -45,7 +45,6 @@ namespace cs4540_final_project.Data
 
             string UserPassword = "123ABC!@#def";
 
-            
             // Create user Barber01
             IdentityUser user = new IdentityUser
             {
@@ -144,6 +143,29 @@ namespace cs4540_final_project.Data
                 await userManager.AddToRoleAsync(user3, "Barber");
             }
 
+            WorkerComment GoodComment = new WorkerComment()
+            {
+                Comment = "Good Job!",
+                StarRating = 5,
+                Worker = barber01,
+                LastUpdated = DateTime.UtcNow.ToLocalTime(),
+            };
+
+            WorkerComment DecentComment = new WorkerComment()
+            {
+                Comment = "Decent Job.",
+                StarRating = 3,
+                Worker = barber01,
+                LastUpdated = DateTime.UtcNow.ToLocalTime(),
+            };
+
+            WorkerComment TerribleComment = new WorkerComment()
+            {
+                Comment = "Terrible Job.",
+                StarRating = 1,
+                Worker = barber01,
+                LastUpdated = DateTime.UtcNow.ToLocalTime(),
+            };
 
             // Create user Customer
             user = new IdentityUser

@@ -17,8 +17,8 @@ namespace cs4540_final_project.Data
             //context.Database.EnsureDeleted();
             //workerContext.Database.EnsureDeleted();
 
-            //context.Database.Migrate();
-            //workerContext.Database.Migrate();
+            context.Database.Migrate();
+            workerContext.Database.Migrate();
 
             if (context.Users.Any())
             {

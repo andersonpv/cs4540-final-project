@@ -29,7 +29,7 @@ namespace cs4540_final_project.Data
                .GetRequiredService<RoleManager<IdentityRole>>();
 
             // Create roles
-            string[] roleNames = { "Admin", "Barber", "Customer" };
+            string[] roleNames = { "Admin", "Worker", "Customer" };
             IdentityResult roleResult;
             foreach (string roleName in roleNames)
             {
@@ -75,7 +75,7 @@ namespace cs4540_final_project.Data
             IdentityResult createUser = await userManager.CreateAsync(user, UserPassword);
             if (createUser.Succeeded)
             {
-                await userManager.AddToRoleAsync(user, "Barber");
+                await userManager.AddToRoleAsync(user, "Worker");
             }
 
             List<WorkerComment> barber01Comments = new List<WorkerComment>
@@ -115,7 +115,7 @@ namespace cs4540_final_project.Data
             IdentityResult createUser4 = await userManager.CreateAsync(user2, UserPassword);
             if (createUser4.Succeeded)
             {
-                await userManager.AddToRoleAsync(user2, "Barber");
+                await userManager.AddToRoleAsync(user2, "Worker");
             }
 
             WorkerComment[] barber02Comments = new WorkerComment[]
@@ -141,6 +141,7 @@ namespace cs4540_final_project.Data
                 Name = "Samantha Harris",
                 Services = "Haircuts/hair styling, beards, nails",
                 Description = "Barber for 9 years.",
+                Job = "Hair Stylist",
                 User = user3,
                 Schedule = new List<DaySchedule>
                 {
@@ -153,7 +154,7 @@ namespace cs4540_final_project.Data
             IdentityResult createUser5 = await userManager.CreateAsync(user3, UserPassword);
             if (createUser5.Succeeded)
             {
-                await userManager.AddToRoleAsync(user3, "Barber");
+                await userManager.AddToRoleAsync(user3, "Worker");
             }
             WorkerComment[] barber03Comments = new WorkerComment[]
             {
@@ -163,10 +164,6 @@ namespace cs4540_final_project.Data
             };
             foreach (WorkerComment s in barber03Comments)
                 workerContext.WorkerComment.Add(s);
-
-
-
-
 
             // Create user Customer
             user = new IdentityUser

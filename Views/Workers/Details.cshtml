@@ -19,7 +19,7 @@
         <h3>@Html.DisplayNameFor(model => model.Services): @Html.DisplayFor(model => model.Services)</h3>
         <h3> @Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)</h3>
 
-        @if (SignInManager.IsSignedIn(User))
+        @if (User.IsInRole("Admin") || User.IsInRole("Worker"))
         {
             <a class="button-link book-now-btn" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
         }

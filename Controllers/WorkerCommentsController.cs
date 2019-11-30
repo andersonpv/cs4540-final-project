@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cs4540_final_project.Data;
 using cs4540_final_project.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
 
 namespace cs4540_final_project.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class WorkerCommentsController : Controller
     {
         private readonly WorkerContext _context;
@@ -22,6 +22,7 @@ namespace cs4540_final_project.Controllers
         // GET: WorkerComments
         public async Task<IActionResult> Index()
         {
+            ViewData["workers"] = _context.Worker.ToList(); ;
             return View(await _context.WorkerComment.ToListAsync());
         }
 

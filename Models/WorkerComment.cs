@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,7 +14,11 @@ namespace cs4540_final_project.Models
 
         public string Comment { get; set; }
 
+        public string name { get; set; }
+
         public int StarRating { get; set; }
+
+        public int WorkerID { get; set; }
 
         public Worker Worker { get; set; }
 

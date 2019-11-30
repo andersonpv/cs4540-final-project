@@ -18,6 +18,7 @@
         <h3>@Html.DisplayNameFor(model => model.Job): @Html.DisplayFor(model => model.Job)</h3>
         <h3>@Html.DisplayNameFor(model => model.Services): @Html.DisplayFor(model => model.Services)</h3>
         <h3> @Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)</h3>
+        <h3> @Html.DisplayNameFor(model => model.Reviews):</h3>
 
         @if (User.IsInRole("Admin") || User.IsInRole("Worker"))
         {
@@ -26,6 +27,13 @@
         else
         {
             <a class="button-link book-now-btn">Book Now</a>
+        }
+
+        @foreach (WorkerComment comment in Model.Reviews)
+        {
+            <h4>@comment.LastUpdated: Commenter: @comment.name</h4>
+            <h4>@comment.StarRating</h4>
+            <h4>@comment.Comment</h4>
         }
     </div>
 </div>

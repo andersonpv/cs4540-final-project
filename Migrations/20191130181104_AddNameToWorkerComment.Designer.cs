@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using cs4540_final_project.Data;
 
 namespace cs4540_final_project.Migrations
 {
     [DbContext(typeof(WorkerContext))]
-    partial class WorkerContextModelSnapshot : ModelSnapshot
+    [Migration("20191130181104_AddNameToWorkerComment")]
+    partial class AddNameToWorkerComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

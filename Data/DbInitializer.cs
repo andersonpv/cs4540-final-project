@@ -14,8 +14,8 @@ namespace cs4540_final_project.Data
     {
         public static async Task InitializeAsync(UserRolesDB context, WorkerContext workerContext, IServiceProvider serviceProvider)
         {
-            context.Database.EnsureDeleted();
-            workerContext.Database.EnsureDeleted();
+            //context.Database.EnsureDeleted();
+            //workerContext.Database.EnsureDeleted();
 
             context.Database.Migrate();
             workerContext.Database.Migrate();
@@ -44,7 +44,6 @@ namespace cs4540_final_project.Data
                 .GetRequiredService<UserManager<IdentityUser>>();
 
             string UserPassword = "123ABC!@#def";
-
 
             // Create user Barber01
             IdentityUser user = new IdentityUser
@@ -80,9 +79,9 @@ namespace cs4540_final_project.Data
 
             List<WorkerComment> barber01Comments = new List<WorkerComment>
             {
-                new WorkerComment() { Comment = "Good Job.", StarRating = 3, Worker= barber01, LastUpdated = DateTime.UtcNow.ToLocalTime() },
-                new WorkerComment() { Comment = "Decent Job.", StarRating = 3,Worker= barber01, LastUpdated = DateTime.UtcNow.ToLocalTime() },
-                new WorkerComment() { Comment = "Terrible Job.", StarRating = 1,Worker= barber01, LastUpdated = DateTime.UtcNow.ToLocalTime() }
+                new WorkerComment() { Comment = "Good Job.", StarRating = 3, WorkerID = 1, Worker= barber01, name = "Bob Ross", LastUpdated = DateTime.UtcNow.ToLocalTime() },
+                new WorkerComment() { Comment = "Decent Job.", StarRating = 3, WorkerID = 1, Worker= barber01, name = "Debra Burks", LastUpdated = DateTime.UtcNow.ToLocalTime() },
+                new WorkerComment() { Comment = "Terrible Job.", StarRating = 1, WorkerID = 1, Worker= barber01, name = "Genoveva Baldwin", LastUpdated = DateTime.UtcNow.ToLocalTime() }
             };
             foreach (WorkerComment s in barber01Comments)
                 workerContext.WorkerComment.Add(s);
@@ -120,9 +119,9 @@ namespace cs4540_final_project.Data
 
             WorkerComment[] barber02Comments = new WorkerComment[]
             {
-                new WorkerComment() { Comment = "Good Job!", StarRating = 5, Worker = barber02, LastUpdated = DateTime.UtcNow.ToLocalTime() },
-                new WorkerComment() { Comment = "Decent Job.", StarRating = 3, Worker = barber02, LastUpdated = DateTime.UtcNow.ToLocalTime() },
-                new WorkerComment() { Comment = "Terrible Job.", StarRating = 1, Worker = barber02 , LastUpdated = DateTime.UtcNow.ToLocalTime() }
+                new WorkerComment() { Comment = "Good Job!", StarRating = 5, WorkerID = 2, Worker = barber02, name = "Jacquilne Duncan", LastUpdated = DateTime.UtcNow.ToLocalTime() },
+                new WorkerComment() { Comment = "Decent Job.", StarRating = 3, WorkerID = 2, Worker = barber02, name = "Lyndsey Bean", LastUpdated = DateTime.UtcNow.ToLocalTime() },
+                new WorkerComment() { Comment = "Terrible Job.", StarRating = 1, WorkerID = 2, Worker = barber02, name = "Pamelia Newman", LastUpdated = DateTime.UtcNow.ToLocalTime() }
             };
             foreach (WorkerComment s in barber02Comments)
                 workerContext.WorkerComment.Add(s);
@@ -158,15 +157,15 @@ namespace cs4540_final_project.Data
             }
             WorkerComment[] barber03Comments = new WorkerComment[]
             {
-                new WorkerComment() { Comment = "Good Job!", StarRating = 5, Worker = barber03, LastUpdated = DateTime.UtcNow.ToLocalTime() },
-                new WorkerComment() { Comment = "Decent Job.", StarRating = 3, Worker = barber03, LastUpdated = DateTime.UtcNow.ToLocalTime() },
-                new WorkerComment() { Comment = "Terrible Job.", StarRating = 1, Worker = barber03 , LastUpdated = DateTime.UtcNow.ToLocalTime() }
+                new WorkerComment() { Comment = "Good Job!", StarRating = 5, WorkerID = 3, Worker = barber03, name = "Jerry Seinfeld", LastUpdated = DateTime.UtcNow.ToLocalTime() },
+                new WorkerComment() { Comment = "Decent Job.", StarRating = 3, WorkerID = 3, Worker = barber03, name = "Elaine Benes", LastUpdated = DateTime.UtcNow.ToLocalTime() },
+                new WorkerComment() { Comment = "Terrible Job.", StarRating = 1, WorkerID = 3, Worker = barber03, name = "George Costansa", LastUpdated = DateTime.UtcNow.ToLocalTime() }
             };
             foreach (WorkerComment s in barber03Comments)
                 workerContext.WorkerComment.Add(s);
 
             // Create user Customer
-            user = new IdentityUser
+            IdentityUser Customer = new IdentityUser
             {
                 Id = "4",
                 UserName = "Customer@gmail.com",
@@ -175,11 +174,10 @@ namespace cs4540_final_project.Data
                 NormalizedEmail = "CUSTOMER@GMAIL.COM",
                 EmailConfirmed = true,
             };
-
-            IdentityResult createUser2 = await userManager.CreateAsync(user, UserPassword);
+            IdentityResult createUser2 = await userManager.CreateAsync(Customer, UserPassword);
             if (createUser2.Succeeded)
             {
-                await userManager.AddToRoleAsync(user, "Customer");
+                await userManager.AddToRoleAsync(Customer, "Customer");
             }
 
             // Create user Admin

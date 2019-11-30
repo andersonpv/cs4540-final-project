@@ -66,3 +66,7 @@
         width: 70%;
     }
 }
+
+.checked {
+    color: orange;
+}

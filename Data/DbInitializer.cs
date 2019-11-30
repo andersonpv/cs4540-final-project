@@ -79,7 +79,7 @@ namespace cs4540_final_project.Data
 
             List<WorkerComment> barber01Comments = new List<WorkerComment>
             {
-                new WorkerComment() { Comment = "Good Job.", StarRating = 3, WorkerID = 1, Worker= barber01, Name = "Bob Ross", LastUpdated = DateTime.UtcNow.ToLocalTime() },
+                new WorkerComment() { Comment = "Good Job!", StarRating = 5, WorkerID = 1, Worker= barber01, Name = "Bob Ross", LastUpdated = DateTime.UtcNow.ToLocalTime() },
                 new WorkerComment() { Comment = "Decent Job.", StarRating = 3, WorkerID = 1, Worker= barber01, Name = "Debra Burks", LastUpdated = DateTime.UtcNow.ToLocalTime() },
                 new WorkerComment() { Comment = "Terrible Job.", StarRating = 1, WorkerID = 1, Worker= barber01, Name = "Genoveva Baldwin", LastUpdated = DateTime.UtcNow.ToLocalTime() }
             };

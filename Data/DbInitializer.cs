@@ -14,8 +14,8 @@ namespace cs4540_final_project.Data
     {
         public static async Task InitializeAsync(UserRolesDB context, WorkerContext workerContext, IServiceProvider serviceProvider)
         {
-            context.Database.EnsureDeleted();
-            workerContext.Database.EnsureDeleted();
+            //context.Database.EnsureDeleted();
+            //workerContext.Database.EnsureDeleted();
 
             context.Database.Migrate();
             workerContext.Database.Migrate();

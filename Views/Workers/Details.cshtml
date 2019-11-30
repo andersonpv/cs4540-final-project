@@ -29,6 +29,7 @@
             <a class="button-link book-now-btn">Book Now</a>
         }
 
+        <a class="button-link book-now-btn" asp-action="Edit" asp-route-id="@Model.ID">View Comments</a>
         @foreach (WorkerComment comment in Model.Reviews)
         {
             <h4>@comment.LastUpdated: Commenter: @comment.Name</h4>

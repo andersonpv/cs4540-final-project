@@ -6,6 +6,9 @@ using cs4540_final_project.Data;
 using cs4540_final_project.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
+using System.Collections;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data;
 
 namespace cs4540_final_project.Controllers
 {
@@ -23,7 +26,7 @@ namespace cs4540_final_project.Controllers
         public async Task<IActionResult> Index()
         {
             ViewData["workers"] = _context.Worker.ToList(); ;
-            return View(await _context.WorkerComment.ToListAsync());
+            return View(await _context.WorkerComment.OrderBy(m => m.Worker.Name).ToListAsync());
         }
 
         // GET: WorkerComments/Details/5
@@ -35,6 +38,7 @@ namespace cs4540_final_project.Controllers
             }
 
             var workerComment = await _context.WorkerComment
+                .Include(m => m.Worker)
                 .FirstOrDefaultAsync(m => m.WorkerCommentID == id);
             if (workerComment == null)
             {
@@ -44,9 +48,16 @@ namespace cs4540_final_project.Controllers
             return View(workerComment);
         }
 
+        // GET: WorkerComments/CreateCommentForWorker
+        public IActionResult CreateCommentForWorker(int? id)
+        {
+            return View();
+        }
+
         // GET: WorkerComments/Create
         public IActionResult Create()
         {
+            ViewDataSelectWorkers();
             return View();
         }
 
@@ -55,15 +66,35 @@ namespace cs4540_final_project.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WorkerCommentID,Comment,StarRating,LastUpdated")] WorkerComment workerComment)
+        public async Task<IActionResult> Create([Bind("WorkerCommentID,Name,Comment,StarRating,LastUpdated,WorkerID")] WorkerComment workerComment)
         {
             if (ModelState.IsValid)
             {
+                Worker worker = _context.Worker.Where(m => m.ID == workerComment.WorkerID).FirstOrDefault();
+                workerComment.Worker = worker;
+
                 _context.Add(workerComment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewDataSelectWorkers();
             return View(workerComment);
+        }
+
+        private void ViewDataSelectWorkers()
+        {
+            var instructors =
+               (from Instructors in _context.Worker
+                select Instructors.Name).FirstOrDefault();
+
+            IEnumerable items = _context.Worker.Select(
+                c => new SelectListItem()
+                {
+                    Text = c.Name,
+                    Value = "" + c.ID
+                }).ToList();
+
+            ViewData["WorkerSelect"] = items;
         }
 
         // GET: WorkerComments/Edit/5
@@ -73,6 +104,8 @@ namespace cs4540_final_project.Controllers
             {
                 return NotFound();
             }
+
+            ViewDataSelectWorkers();
 
             var workerComment = await _context.WorkerComment.FindAsync(id);
             if (workerComment == null)
@@ -87,7 +120,7 @@ namespace cs4540_final_project.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("WorkerCommentID,Comment,StarRating,LastUpdated")] WorkerComment workerComment)
+        public async Task<IActionResult> Edit(int id, [Bind("WorkerCommentID,Name,Comment,StarRating,LastUpdated,WorkerID")] WorkerComment workerComment)
         {
             if (id != workerComment.WorkerCommentID)
             {
@@ -126,6 +159,7 @@ namespace cs4540_final_project.Controllers
             }
 
             var workerComment = await _context.WorkerComment
+                .Include(m => m.Worker)
                 .FirstOrDefaultAsync(m => m.WorkerCommentID == id);
             if (workerComment == null)
             {

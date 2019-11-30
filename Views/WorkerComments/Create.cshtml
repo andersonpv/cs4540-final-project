@@ -33,6 +33,14 @@
                 <input asp-for="LastUpdated" class="form-control" />
                 <span asp-validation-for="LastUpdated" class="text-danger"></span>
             </div>
+            @{
+                var value = (IEnumerable<SelectListItem>)ViewData["WorkerSelect"];
+            }
+            <div class="form-group">
+                <label asp-for="WorkerID" class="control-label"></label>
+                <select asp-for="WorkerID" class="form-control" asp-items="@value">
+                </select>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

@@ -14,7 +14,7 @@ namespace cs4540_final_project.Models
 
         public string Comment { get; set; }
 
-        public string name { get; set; }
+        public string Name { get; set; }
 
         public int StarRating { get; set; }
 

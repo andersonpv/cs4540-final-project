@@ -12,7 +12,6 @@ using System.Data;
 
 namespace cs4540_final_project.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class WorkerCommentsController : Controller
     {
         private readonly WorkerContext _context;
@@ -23,13 +22,40 @@ namespace cs4540_final_project.Controllers
         }
 
         // GET: WorkerComments
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            ViewData["workers"] = _context.Worker.ToList(); ;
+            ViewData["workers"] = _context.Worker.ToList();
             return View(await _context.WorkerComment.OrderBy(m => m.Worker.Name).ToListAsync());
         }
 
+        // GET: WorkerComments
+        public async Task<IActionResult> ShowComments(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["workers"] = _context.Worker.ToList();
+            List<WorkerComment> workerComment = _context.WorkerComment
+                .Include(m => m.Worker)
+                .Where(m => m.WorkerID == id)
+                .ToList();
+
+            if (workerComment == null)
+            {
+                return NotFound();
+            }
+
+            return View(workerComment);
+
+            //ViewData["workers"] = _context.Worker.ToList();
+            //return View(await _context.WorkerComment.OrderBy(m => m.Worker.Name).ToListAsync());
+        }
+
         // GET: WorkerComments/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,13 +74,8 @@ namespace cs4540_final_project.Controllers
             return View(workerComment);
         }
 
-        // GET: WorkerComments/CreateCommentForWorker
-        public IActionResult CreateCommentForWorker(int? id)
-        {
-            return View();
-        }
-
         // GET: WorkerComments/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewDataSelectWorkers();
@@ -66,6 +87,7 @@ namespace cs4540_final_project.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("WorkerCommentID,Name,Comment,StarRating,LastUpdated,WorkerID")] WorkerComment workerComment)
         {
             if (ModelState.IsValid)
@@ -98,6 +120,7 @@ namespace cs4540_final_project.Controllers
         }
 
         // GET: WorkerComments/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -120,6 +143,7 @@ namespace cs4540_final_project.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("WorkerCommentID,Name,Comment,StarRating,LastUpdated,WorkerID")] WorkerComment workerComment)
         {
             if (id != workerComment.WorkerCommentID)
@@ -151,6 +175,7 @@ namespace cs4540_final_project.Controllers
         }
 
         // GET: WorkerComments/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -172,6 +197,7 @@ namespace cs4540_final_project.Controllers
         // POST: WorkerComments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var workerComment = await _context.WorkerComment.FindAsync(id);

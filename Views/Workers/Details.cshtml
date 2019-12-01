@@ -18,7 +18,6 @@
         <h3>@Html.DisplayNameFor(model => model.Job): @Html.DisplayFor(model => model.Job)</h3>
         <h3>@Html.DisplayNameFor(model => model.Services): @Html.DisplayFor(model => model.Services)</h3>
         <h3> @Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)</h3>
-        <h3> @Html.DisplayNameFor(model => model.Reviews):</h3>
 
         @if (User.IsInRole("Admin") || User.IsInRole("Worker"))
         {
@@ -29,13 +28,7 @@
             <a class="button-link book-now-btn">Book Now</a>
         }
 
-        <a class="button-link book-now-btn" asp-action="Edit" asp-route-id="@Model.ID">View Comments</a>
-        @foreach (WorkerComment comment in Model.Reviews)
-        {
-            <h4>@comment.LastUpdated: Commenter: @comment.Name</h4>
-            <h4>@comment.StarRating</h4>
-            <h4>@comment.Comment</h4>
-        }
+        <a class="button-link book-now-btn" asp-controller="WorkerComments" asp-action="ShowComments" asp-route-id="@Model.ID">View Comments</a>
     </div>
 </div>
 

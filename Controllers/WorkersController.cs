@@ -34,6 +34,7 @@ namespace cs4540_final_project.Controllers
             }
 
             var worker = await _context.Worker
+                .Include(o => o.Schedule)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (worker == null)
             {

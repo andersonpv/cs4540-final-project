@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace cs4540_final_project.Models
@@ -10,8 +11,9 @@ namespace cs4540_final_project.Models
  */
     public class Worker
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-
 
         [ForeignKey("UserId")]
         public IdentityUser User { get; set; }
@@ -30,7 +32,7 @@ namespace cs4540_final_project.Models
 
         public ICollection<DaySchedule> Schedule { get; set; }
 
-        // ICollection<Comment> Reviews { get; set; }
+        public ICollection<WorkerComment> Reviews { get; set; }
     }
 }
 

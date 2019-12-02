@@ -19,122 +19,7 @@
         <h3>@Html.DisplayNameFor(model => model.Services): @Html.DisplayFor(model => model.Services)</h3>
         <h3> @Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)</h3>
 
-
-        <div class="container">
-            <div class="row">
-                @foreach (DaySchedule ds in Model.Schedule)
-                {
-                    string checkID = ds + "nine";
-
-                    <div class="col-sm">
-
-                        <h3> @ds.dateTime.ToString("d") </h3>
-
-                        <br />
-
-                        <div class="form-check">
-                            <label class="form-check-label">9:00</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-
-                        @{ checkID = ds + "nineThirty"; }
-                        <div class="form-check">
-                            <label class="form-check-label">9:30</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-
-                        @{ checkID = ds + "ten"; }
-                        <div class="form-check">
-                            <label class="form-check-label">10:00</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-
-                        @{checkID = ds + "tenThirty"; }
-                        <div class="form-check">
-                            <label class="form-check-label">10:30</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-
-                        @{checkID = ds + "eleven"; }
-                        <div class="form-check">
-                            <label class="form-check-label">11:00</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-
-                        @{checkID = ds + "elevenThirty"; }
-                        <div class="form-check">
-                            <label class="form-check-label">11:30</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-
-                        @{checkID = ds + "twelve"; }
-                        <div class="form-check">
-                            <label class="form-check-label">12:00</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-
-                        @{checkID = ds + "twelveThirty"; }
-                        <div class="form-check">
-                            <label class="form-check-label">12:30</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-
-                        @{checkID = ds + "one"; }
-                        <div class="form-check">
-                            <label class="form-check-label">1:00</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-
-                        @{checkID = ds + "oneThirty"; }
-                        <div class="form-check">
-                            <label class="form-check-label">1:30</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-
-                        @{checkID = ds + "two"; }
-                        <div class="form-check">
-                            <label class="form-check-label">2:00</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-
-                        @{checkID = ds + "twoThirty"; }
-                        <div class="form-check">
-                            <label class="form-check-label">2:30</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-
-                        @{checkID = ds + "three"; }
-                        <div class="form-check">
-                            <label class="form-check-label">3:00</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-
-                        @{checkID = ds + "threeThirty"; }
-                        <div class="form-check">
-                            <label class="form-check-label">3:30</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-
-                        @{checkID = ds + "four"; }
-                        <div class="form-check">
-                            <label class="form-check-label">4:00</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-
-                        @{checkID = ds + "fourThirty"; }
-                        <div class="form-check">
-                            <label class="form-check-label">4:30</label>
-                            <input type="checkbox" class="form-check-input" id="@checkID">
-                        </div>
-                    </div>
-
-                }
-            </div>
-
-
-        </div>
-
-        @if (SignInManager.IsSignedIn(User))
+        @if (User.IsInRole("Admin") || User.IsInRole("Worker"))
         {
             <a class="button-link book-now-btn" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
         }
@@ -142,6 +27,8 @@
         {
             <a class="button-link book-now-btn">Book Now</a>
         }
+
+        <a class="button-link book-now-btn" asp-controller="WorkerComments" asp-action="ShowComments" asp-route-id="@Model.ID">View Comments</a>
     </div>
 </div>
 

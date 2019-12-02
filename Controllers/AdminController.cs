@@ -45,7 +45,7 @@ namespace CS4540_LOT.Controllers
 
             if (AddRemove.Equals("Add"))
             {
-                if (Role.Equals("Barber"))
+                if (Role.Equals("Worker"))
                 {
                     // Create new Barber page
                     //InstructorRelation instructor = _context.InstructorRelation.Where(o => o.Username == Username).FirstOrDefault();

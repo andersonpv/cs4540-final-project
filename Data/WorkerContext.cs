@@ -15,5 +15,6 @@ namespace cs4540_final_project.Data
         }
 
         public DbSet<cs4540_final_project.Models.Worker> Worker { get; set; }
+        public DbSet<cs4540_final_project.Models.WorkerComment> WorkerComment { get; set; }
     }
 }

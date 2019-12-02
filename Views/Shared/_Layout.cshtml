@@ -35,6 +35,12 @@
                 <!-- Menu items -->
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse nav-items">
                     <ul class="navbar-nav flex-grow-1 justify-content-end">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Admin">Admin</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>

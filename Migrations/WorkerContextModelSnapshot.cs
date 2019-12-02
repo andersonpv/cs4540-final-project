@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using cs4540_final_project.Data;
 
-namespace cs4540_final_project.Migrations.Worker
+namespace cs4540_final_project.Migrations
 {
     [DbContext(typeof(WorkerContext))]
-    [Migration("20191123041142_addedDescriptionToWorker")]
-    partial class addedDescriptionToWorker
+    partial class WorkerContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,6 +129,29 @@ namespace cs4540_final_project.Migrations.Worker
                     b.ToTable("Worker");
                 });
 
+            modelBuilder.Entity("cs4540_final_project.Models.WorkerComment", b =>
+                {
+                    b.Property<int>("WorkerCommentID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment");
+
+                    b.Property<DateTime>("LastUpdated");
+
+                    b.Property<int>("StarRating");
+
+                    b.Property<int>("WorkerID");
+
+                    b.Property<string>("name");
+
+                    b.HasKey("WorkerCommentID");
+
+                    b.HasIndex("WorkerID");
+
+                    b.ToTable("WorkerComment");
+                });
+
             modelBuilder.Entity("cs4540_final_project.Models.DaySchedule", b =>
                 {
                     b.HasOne("cs4540_final_project.Models.Worker")
@@ -143,6 +164,14 @@ namespace cs4540_final_project.Migrations.Worker
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("cs4540_final_project.Models.WorkerComment", b =>
+                {
+                    b.HasOne("cs4540_final_project.Models.Worker", "Worker")
+                        .WithMany("Reviews")
+                        .HasForeignKey("WorkerID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

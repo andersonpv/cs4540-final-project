@@ -1,22 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace cs4540_final_project.Migrations.Worker
+namespace cs4540_final_project.Migrations
 {
-    public partial class addedDescriptionToWorker : Migration
+    public partial class AddNameToWorkerComment : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "Description",
-                table: "Worker",
+                name: "name",
+                table: "WorkerComment",
                 nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Description",
-                table: "Worker");
+                name: "name",
+                table: "WorkerComment");
         }
     }
 }

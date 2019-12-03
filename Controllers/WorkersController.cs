@@ -34,6 +34,7 @@ namespace cs4540_final_project.Controllers
             }
 
             var worker = await _context.Worker
+                .Include(o => o.Schedule)
                 .Include(m => m.Reviews)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (worker == null)
@@ -43,7 +44,72 @@ namespace cs4540_final_project.Controllers
 
             return View(worker);
         }
-        
+
+        // Book an appointment
+        public async Task<IActionResult> Book(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var worker = await _context.Worker
+                .Include(o => o.Schedule)
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (worker == null)
+            {
+                return NotFound();
+            }
+
+            return View(worker);
+        }
+
+
+        public async Task<IActionResult> BookAppointment(int? id, int? scheduleID, string time, string date)
+        {
+            var worker = await _context.Worker
+                .Include(w => w.Schedule)
+                .FirstOrDefaultAsync(w => w.ID == id);
+
+            DaySchedule ds = worker.Schedule.FirstOrDefault(o => o.DayScheduleID == scheduleID);
+
+            if (time == "9:00")
+                ds.Nine = true;
+            else if (time == "9:30")
+                ds.NineThirty = true;
+            else if (time == "10:00")
+                ds.Ten = true;
+            else if (time == "10:30")
+                ds.TenThirty = true;
+            else if (time == "11:00")
+                ds.Eleven = true;
+            else if (time == "11:30")
+                ds.ElevenThirty = true;
+            else if (time == "12:00")
+                ds.Twelve = true;
+            else if (time == "12:30")
+                ds.TwelveThirty = true;
+            else if (time == "1:00")
+                ds.One = true;
+            else if (time == "1:30")
+                ds.OneThirty = true;
+            else if (time == "2:00")
+                ds.Two = true;
+            else if (time == "2:30")
+                ds.TwoThirty = true;
+            else if (time == "3:00")
+                ds.Three = true;
+            else if (time == "3:30")
+                ds.ThreeThirty = true;
+            else if (time == "4:00")
+                ds.Four = true;
+            else if (time == "4:30")
+                ds.FourThirty = true;
+
+            _context.SaveChanges();
+
+            return Json(new { success = false, errorMessage = "" });
+        }
+
+
         // GET: Workers/Create
         public IActionResult Create()
         {

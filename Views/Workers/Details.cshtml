@@ -25,7 +25,7 @@
         }
         else
         {
-            <a class="button-link book-now-btn">Book Now</a>
+            <a class="button-link book-now-btn" asp-controller="Workers" asp-action="Book" asp-route-id="@Model.ID">Book Now</a>
         }
 
         <a class="button-link book-now-btn" asp-controller="WorkerComments" asp-action="ShowComments" asp-route-id="@Model.ID">View Comments</a>

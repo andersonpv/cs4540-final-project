@@ -4,12 +4,110 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" href="~/css/details.css">
+<link rel="stylesheet" href="~/css/comments.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" />
 <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 
 
-<div class="intro-section">
+<!-- Comments container-->
+<div class="comment-section">
+    <!-- Title -->
+    <div class="comment-header">
+        <h1>Testimonials</h1>
+    </div>
+    <div class="comments card-group">
+
+        @foreach (var item in Model)
+        {
+            <!-- Comment card-->
+            <div class="comments-container">
+                <div class="profile-name">
+                    @item.Name
+                </div>
+                <div class="rating">
+                    @{
+                        int rating = item.StarRating;
+                        switch (rating)
+                        {
+                            case 1:
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                break;
+                            case 2:
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                break;
+                            case 3:
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                break;
+                            case 4:
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                break;
+                            case 5:
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                break;
+                            default:
+                                if (rating >= 5)
+                                {
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                }
+                                else
+                                {
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                }
+                                break;
+                        }
+                    }
+                </div>
+                <div class="comment">
+                    <p>@item.Comment</p>
+                </div>
+                <div class="last-updated">
+                    <p>Last updated: @item.LastUpdated</p>
+                </div>
+                <div class="buttons">
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.WorkerCommentID">Edit</a>
+                    @*<a class="btn" asp-action="Details" asp-route-id="@item.WorkerCommentID">Details</a>*@
+                    <a class="btn" asp-action="Delete" asp-route-id="@item.WorkerCommentID">Delete</a>
+                </div>
+
+                @*<a class="btn" asp-route-id="@item.ID" asp-controller="Workers" asp-action="Details">Profile</a>
+                    <a class="btn" asp-route-id="@item.ID" asp-controller="Workers" asp-action="Details">Book Now</a>*@
+            </div>
+        }
+
+    </div>
+</div>
+
+<!-- End of barbers container-->
+
+@*<div class="intro-section">
     <div class="intro-text">
 
         <br />
@@ -139,4 +237,4 @@
             </tbody>
         </table>
     </div>
-</div>
+</div>*@

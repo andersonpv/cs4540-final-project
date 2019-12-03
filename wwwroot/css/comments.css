@@ -1,0 +1,97 @@
+﻿body {
+
+}
+
+.comment-section {
+    background: url("../images/comments-background3.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.comment-header {
+    text-align: center;
+    padding-top: 130px;
+}
+
+.comment-header h1 {
+    font-weight: 700;
+    font-size: 68px;
+    color: #fff;
+}    
+
+.comments {
+    margin-top: 50px;
+    display: flex;
+}
+
+.comments-container {
+    margin: 50px auto;
+    background: #e8e8e8;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 10px 20px -10px rgba(0,0,0,.75);  
+    font-family: 'Montserrat', sans-serif;
+}
+
+.profile-name, .comment, .last-updated {
+    color: #000;
+}
+
+.pic-container {
+    height: 160px;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+}
+
+.profile-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.rating {
+    margin-top: 0px;
+    line-height: 21px;
+}
+
+.comment {
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+.last-updated {
+    font-size: 10px;
+    margin-bottom: 25px;
+}
+
+.checked {
+    color: #e08628;
+}
+
+.buttons {
+    margin-top: 30px;
+    margin-bottom: 55px;
+}
+
+.btn {
+    border: 1px solid #000;
+    padding: 10px 25px;
+    color: #000 !important;
+    border-radius: 3px;
+    font-family: sans-serif;
+    cursor: pointer;
+    margin-top: 15px;
+    font-family: 'Montserrat', sans-serif;
+    background: transparent;
+    display: block;
+    width: 130px;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+    .btn:hover {
+        color: #fff !important;
+        background: #000;
+        transition: .5s;
+    }

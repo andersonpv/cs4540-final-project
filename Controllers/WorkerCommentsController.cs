@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data;
+using System.Security.Claims;
 
 namespace cs4540_final_project.Controllers
 {
@@ -74,6 +75,39 @@ namespace cs4540_final_project.Controllers
             return View(workerComment);
         }
 
+
+        // GET: WorkerComments/Create
+        [Authorize(Roles = "Admin")]
+        public IActionResult ClientCreate()
+        {
+            ViewDataSelectWorkers();
+            return View();
+        }
+
+        // POST: WorkerComments/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ClientCreate([Bind("WorkerCommentID,Name,Comment,StarRating,LastUpdated,WorkerID")] WorkerComment workerComment)
+        {
+            if (ModelState.IsValid)
+            {
+                Worker worker = _context.Worker.Where(m => m.ID == workerComment.WorkerID).FirstOrDefault();
+                workerComment.Worker = worker;
+
+                _context.Add(workerComment);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewDataSelectWorkers();
+            return View(workerComment);
+        }
+
+
+
+
+
         // GET: WorkerComments/Create
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
@@ -123,6 +157,7 @@ namespace cs4540_final_project.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
@@ -131,6 +166,7 @@ namespace cs4540_final_project.Controllers
             ViewDataSelectWorkers();
 
             var workerComment = await _context.WorkerComment.FindAsync(id);
+
             if (workerComment == null)
             {
                 return NotFound();
@@ -146,6 +182,8 @@ namespace cs4540_final_project.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("WorkerCommentID,Name,Comment,StarRating,LastUpdated,WorkerID")] WorkerComment workerComment)
         {
+
+
             if (id != workerComment.WorkerCommentID)
             {
                 return NotFound();

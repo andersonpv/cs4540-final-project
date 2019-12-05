@@ -16,6 +16,7 @@
         <h1>Testimonials</h1>
     </div>
     <div class="comments card-group">
+        <a class="button-link book-now-btn" asp-controller="WorkerComments" asp-action="ClientCreate">Write a Comments</a>
 
         @foreach (var item in Model)
         {
@@ -92,13 +93,16 @@
                     <p>Last updated: @item.LastUpdated</p>
                 </div>
                 <div class="buttons">
-                    <a class="btn" asp-action="Edit" asp-route-id="@item.WorkerCommentID">Edit</a>
+                    @if (User.IsInRole("Admin") || User.Identity.Name == item.Name)
+                    {
+                        <a class="btn" asp-action="Edit" asp-route-id="@item.WorkerCommentID">Edit</a>
+                        <a class="btn" asp-action="Delete" asp-route-id="@item.WorkerCommentID">Delete</a>
+                    }
                     @*<a class="btn" asp-action="Details" asp-route-id="@item.WorkerCommentID">Details</a>*@
-                    <a class="btn" asp-action="Delete" asp-route-id="@item.WorkerCommentID">Delete</a>
                 </div>
 
                 @*<a class="btn" asp-route-id="@item.ID" asp-controller="Workers" asp-action="Details">Profile</a>
-                    <a class="btn" asp-route-id="@item.ID" asp-controller="Workers" asp-action="Details">Book Now</a>*@
+                <a class="btn" asp-route-id="@item.ID" asp-controller="Workers" asp-action="Details">Book Now</a>*@
             </div>
         }
 

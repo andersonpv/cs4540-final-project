@@ -70,6 +70,8 @@ namespace cs4540_final_project.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "Customer");
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -83,6 +85,7 @@ namespace cs4540_final_project.Areas.Identity.Pages.Account
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
+                    
                     return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)

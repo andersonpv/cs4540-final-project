@@ -2,7 +2,7 @@
     CS 4540 Web Software Architecture
     Displays User roles for Admin.
     Author: Kevin Nguyen
-    Date: 10-18-2019
+    Date: 12-6-2019
 -->
 @using Microsoft.AspNetCore.Identity
 @{
@@ -12,112 +12,209 @@
 @inject UserManager<IdentityUser> UserManager
 @inject RoleManager<IdentityRole> RoleManager
 
-<link rel="stylesheet" href="~/css/details.css">
+<link rel="stylesheet" href="~/css/table.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" />
 <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 
+<div class="section">
 
-<div class="intro-section">
-    <div class="intro-text">
-        <a class="nav-link text-white" asp-area="" asp-controller="Workers" asp-action="Index">Manage Workers</a>
-        <a class="nav-link text-white" asp-area="" asp-controller="WorkerComments" asp-action="Index">Manage Worker Comments</a>
-        <div class="mw-100">
-            <table class="table table-striped" style="background-color:gray">
-                <thead class="thead-default">
-                    <tr>
-                        <th>
-                            <h2>Users</h2>
-                        </th>
-                        <th>
-                            <h2>Admin</h2>
-                        </th>
-                        <th>
-                            <h2>Barber</h2>
-                        </th>
-                        <th>
-                            <h2>Customer</h2>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (IdentityUser item in UserManager.Users.OrderBy(o => o.UserName))
-                    {
-                        string Email = @item.UserName;
-
-                        System.Text.RegularExpressions.Regex rgx = new System.Text.RegularExpressions.Regex("[^a-zA-Z0-9]");
-                        string nameCB = rgx.Replace(Email, "");
-
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.UserName)
-                            </td>
-                            @{
-                                String TempNameCB = nameCB + "Admin";
-                            }
-                            <td>
-                                @if (await UserManager.IsInRoleAsync(item, "Admin"))
-                                {
-                                    <div class="custom-control custom-switch">
-                                        <input checked onclick="change_role(this, '@TempNameCB', '@Email', 'Admin')" class="custom-control-input" type="checkbox" data-toggle="toggle" name="@TempNameCB'" id="@TempNameCB">
-                                        <label class="custom-control-label" for="@TempNameCB"></label>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="custom-control custom-switch">
-                                        <input onclick="change_role(this, '@TempNameCB', '@Email', 'Admin')" class="custom-control-input" type="checkbox" data-toggle="toggle" name="@TempNameCB'" id="@TempNameCB">
-                                        <label class="custom-control-label" for="@TempNameCB"></label>
-                                    </div>
-                                }
-                            </td>
-
-                            @{
-                                TempNameCB = nameCB + "Worker";
-                            }
-                            <td>
-                                @if (await UserManager.IsInRoleAsync(item, "Worker"))
-                                {
-                                    <div class="custom-control custom-switch">
-                                        <input checked onclick="change_role(this, '@TempNameCB', '@Email', 'Worker' )" class="custom-control-input" type="checkbox" name="@TempNameCB'" id="@TempNameCB">
-                                        <label class="custom-control-label" for="@TempNameCB"></label>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="custom-control custom-switch">
-                                        <input onclick="change_role(this, '@TempNameCB', '@Email', 'Worker' )" class="custom-control-input" type="checkbox" name="@TempNameCB'" id="@TempNameCB">
-                                        <label class="custom-control-label" for="@TempNameCB"></label>
-                                    </div>
-                                }
-
-                            </td>
-                            @{
-                                TempNameCB = nameCB + "Customer";
-                            }
-                            <td>
-                                @if (await UserManager.IsInRoleAsync(item, "Customer"))
-                                {
-                                    <div class="custom-control custom-switch">
-                                        <input checked onclick="change_role(this, '@TempNameCB', '@Email', 'Customer')" class="custom-control-input" type="checkbox" name="@TempNameCB" id="@TempNameCB">
-                                        <label class="custom-control-label" for="@TempNameCB"></label>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="custom-control custom-switch">
-                                        <input onclick="change_role(this, '@TempNameCB', '@Email', 'Customer')" class="custom-control-input" type="checkbox" name="@TempNameCB" id="@TempNameCB">
-                                        <label class="custom-control-label" for="@TempNameCB"></label>
-                                    </div>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+    <div class="table-box">
+        <div class="buttons">
+            <a class="btn btn-primary btn-lg " asp-area="" asp-controller="Workers" asp-action="Index">Manage Workers</a><br /><br />
+            <a class="btn btn-primary btn-lg " asp-area="" asp-controller="WorkerComments" asp-action="Index">Manage Worker Comments</a><br /><br />
         </div>
+
+        <div class="table-head table-row">
+            <div class="table-cell header-text">
+                Users
+            </div>
+            <div class="table-cell header-text">
+                Admin
+            </div>
+            <div class="table-cell header-text">
+                Barber
+            </div>
+            <div class="table-cell header-text">
+                Customer
+            </div>
+        </div>
+
+        @foreach (IdentityUser item in UserManager.Users.OrderBy(o => o.UserName))
+        {
+            string Email = @item.UserName;
+
+            System.Text.RegularExpressions.Regex rgx = new System.Text.RegularExpressions.Regex("[^a-zA-Z0-9]");
+            string nameCB = rgx.Replace(Email, "");
+
+            <div class="table-row">
+                <div class="table-cell">
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </div>
+                @{
+                    String TempNameCB = nameCB + "Admin";
+                }
+                <div class="table-cell">
+                    @if (await UserManager.IsInRoleAsync(item, "Admin"))
+                    {
+                        <div class="custom-control custom-switch">
+                            <input checked onclick="change_role(this, '@TempNameCB', '@Email', 'Admin')" class="custom-control-input" type="checkbox" data-toggle="toggle" name="@TempNameCB'" id="@TempNameCB">
+                            <label class="custom-control-label" for="@TempNameCB"></label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="custom-control custom-switch">
+                            <input onclick="change_role(this, '@TempNameCB', '@Email', 'Admin')" class="custom-control-input" type="checkbox" data-toggle="toggle" name="@TempNameCB'" id="@TempNameCB">
+                            <label class="custom-control-label" for="@TempNameCB"></label>
+                        </div>
+                    }
+                </div>
+                @{
+                    TempNameCB = nameCB + "Worker";
+                }
+                <div class="table-cell">
+                    @if (await UserManager.IsInRoleAsync(item, "Worker"))
+                    {
+                        <div class="custom-control custom-switch">
+                            <input checked onclick="change_role(this, '@TempNameCB', '@Email', 'Worker' )" class="custom-control-input" type="checkbox" name="@TempNameCB'" id="@TempNameCB">
+                            <label class="custom-control-label" for="@TempNameCB"></label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="custom-control custom-switch">
+                            <input onclick="change_role(this, '@TempNameCB', '@Email', 'Worker' )" class="custom-control-input" type="checkbox" name="@TempNameCB'" id="@TempNameCB">
+                            <label class="custom-control-label" for="@TempNameCB"></label>
+                        </div>
+                    }
+                </div>
+                @{
+                    TempNameCB = nameCB + "Customer";
+                }
+                <div class="table-cell">
+                    @if (await UserManager.IsInRoleAsync(item, "Customer"))
+                    {
+                        <div class="custom-control custom-switch">
+                            <input checked onclick="change_role(this, '@TempNameCB', '@Email', 'Customer')" class="custom-control-input" type="checkbox" name="@TempNameCB" id="@TempNameCB">
+                            <label class="custom-control-label" for="@TempNameCB"></label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="custom-control custom-switch">
+                            <input onclick="change_role(this, '@TempNameCB', '@Email', 'Customer')" class="custom-control-input" type="checkbox" name="@TempNameCB" id="@TempNameCB">
+                            <label class="custom-control-label" for="@TempNameCB"></label>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        }
     </div>
-</div>
-@section Scripts
+
+
+
+    @*<div class="intro-section">
+            <div class="intro-text">
+                <a class="nav-link text-white" asp-area="" asp-controller="Workers" asp-action="Index">Manage Workers</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="WorkerComments" asp-action="Index">Manage Worker Comments</a>
+                <div class="mw-100">
+                    <table class="table table-striped" style="background-color:gray">
+                        <thead class="thead-default">
+                            <tr>
+                                <th>
+                                    <h2>Users</h2>
+                                </th>
+                                <th>
+                                    <h2>Admin</h2>
+                                </th>
+                                <th>
+                                    <h2>Barber</h2>
+                                </th>
+                                <th>
+                                    <h2>Customer</h2>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (IdentityUser item in UserManager.Users.OrderBy(o => o.UserName))
+                            {
+                                string Email = @item.UserName;
+
+                                System.Text.RegularExpressions.Regex rgx = new System.Text.RegularExpressions.Regex("[^a-zA-Z0-9]");
+                                string nameCB = rgx.Replace(Email, "");
+
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </td>
+                                    @{
+                                        String TempNameCB = nameCB + "Admin";
+                                    }
+                                    <td>
+                                        @if (await UserManager.IsInRoleAsync(item, "Admin"))
+                                        {
+                                            <div class="custom-control custom-switch">
+                                                <input checked onclick="change_role(this, '@TempNameCB', '@Email', 'Admin')" class="custom-control-input" type="checkbox" data-toggle="toggle" name="@TempNameCB'" id="@TempNameCB">
+                                                <label class="custom-control-label" for="@TempNameCB"></label>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="custom-control custom-switch">
+                                                <input onclick="change_role(this, '@TempNameCB', '@Email', 'Admin')" class="custom-control-input" type="checkbox" data-toggle="toggle" name="@TempNameCB'" id="@TempNameCB">
+                                                <label class="custom-control-label" for="@TempNameCB"></label>
+                                            </div>
+                                        }
+                                    </td>
+
+                                    @{
+                                        TempNameCB = nameCB + "Worker";
+                                    }
+                                    <td>
+                                        @if (await UserManager.IsInRoleAsync(item, "Worker"))
+                                        {
+                                            <div class="custom-control custom-switch">
+                                                <input checked onclick="change_role(this, '@TempNameCB', '@Email', 'Worker' )" class="custom-control-input" type="checkbox" name="@TempNameCB'" id="@TempNameCB">
+                                                <label class="custom-control-label" for="@TempNameCB"></label>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="custom-control custom-switch">
+                                                <input onclick="change_role(this, '@TempNameCB', '@Email', 'Worker' )" class="custom-control-input" type="checkbox" name="@TempNameCB'" id="@TempNameCB">
+                                                <label class="custom-control-label" for="@TempNameCB"></label>
+                                            </div>
+                                        }
+
+                                    </td>
+                                    @{
+                                        TempNameCB = nameCB + "Customer";
+                                    }
+                                    <td>
+                                        @if (await UserManager.IsInRoleAsync(item, "Customer"))
+                                        {
+                                            <div class="custom-control custom-switch">
+                                                <input checked onclick="change_role(this, '@TempNameCB', '@Email', 'Customer')" class="custom-control-input" type="checkbox" name="@TempNameCB" id="@TempNameCB">
+                                                <label class="custom-control-label" for="@TempNameCB"></label>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="custom-control custom-switch">
+                                                <input onclick="change_role(this, '@TempNameCB', '@Email', 'Customer')" class="custom-control-input" type="checkbox" name="@TempNameCB" id="@TempNameCB">
+                                                <label class="custom-control-label" for="@TempNameCB"></label>
+                                            </div>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>*@
+    @section Scripts
 {
-    <script src="~/js/admin.js"></script>
-}
+        <script src="~/js/admin.js"></script>
+    }

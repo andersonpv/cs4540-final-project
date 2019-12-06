@@ -4,44 +4,85 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<link rel="stylesheet" href="~/css/table.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 
-<p>
-    <a asp-action="Create">Create News</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
+<div class="section">
+    <div class="table-box">
+        <div class="buttons">
+            <a class="btn btn-primary btn-lg " asp-action="Create">Create New</a><br /><br />
+        </div>
+        <div class="table-head table-row">
+            <div class="table-cell header-text">
                 @Html.DisplayNameFor(model => model.Job)
-            </th>
-            <th>
+            </div>
+            <div class="table-cell header-text">
                 @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
+            </div>
+            <div class="table-cell header-text">
                 @Html.DisplayNameFor(model => model.Services)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Job)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Services)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            </div>
+            <div class="table-cell header-text">
+
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="table-row">
+                <div class="table-cell">
+                    @Html.DisplayFor(modelItem => item.Job)
+                </div>
+                <div class="table-cell">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </div>
+                <div class="table-cell">
+                    @Html.DisplayFor(modelItem => item.Services)
+                </div>
+                <div class="table-cell">
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Job)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Services)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Services)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@

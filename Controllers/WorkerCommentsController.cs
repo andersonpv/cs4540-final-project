@@ -224,11 +224,12 @@ namespace cs4540_final_project.Controllers
             {
                 // Must be Admin, or original commenter 
                 IdentityUser user = await _userManager.GetUserAsync(HttpContext.User);
-                if ( !User.IsInRole("Admin") && (!user.UserName.ToUpper().Equals(workerComment.Name.ToUpper())))
+                if (!User.IsInRole("Admin") && (!user.UserName.ToUpper().Equals(workerComment.Name.ToUpper())))
                     return Forbid();
 
                 try
                 {
+                    workerComment.LastUpdated = DateTime.Now;
                     _context.Update(workerComment);
                     await _context.SaveChangesAsync();
                 }

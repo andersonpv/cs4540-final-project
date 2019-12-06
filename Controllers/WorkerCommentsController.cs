@@ -184,23 +184,26 @@ namespace cs4540_final_project.Controllers
         }
 
         // GET: WorkerComments/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> Edit(int? id)
         {
-
             if (id == null)
             {
                 return NotFound();
             }
+            WorkerComment workerComment = await _context.WorkerComment.FindAsync(id);
+            IdentityUser user = await _userManager.GetUserAsync(HttpContext.User);
 
-            ViewDataSelectWorkers();
-
-            var workerComment = await _context.WorkerComment.FindAsync(id);
-
-            if (workerComment == null)
+            if (workerComment == null || user == null)
             {
                 return NotFound();
             }
+
+            // Must be Admin, or original commenter 
+            if (!User.IsInRole("Admin") && (!user.UserName.ToUpper().Equals(workerComment.Name.ToUpper())))
+                return Forbid();
+            
+            ViewDataSelectWorkers();
             return View(workerComment);
         }
 
@@ -209,11 +212,9 @@ namespace cs4540_final_project.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> Edit(int id, [Bind("WorkerCommentID,Name,Comment,StarRating,LastUpdated,WorkerID")] WorkerComment workerComment)
         {
-
-
             if (id != workerComment.WorkerCommentID)
             {
                 return NotFound();
@@ -221,6 +222,11 @@ namespace cs4540_final_project.Controllers
 
             if (ModelState.IsValid)
             {
+                // Must be Admin, or original commenter 
+                IdentityUser user = await _userManager.GetUserAsync(HttpContext.User);
+                if ( !User.IsInRole("Admin") && (!user.UserName.ToUpper().Equals(workerComment.Name.ToUpper())))
+                    return Forbid();
+
                 try
                 {
                     _context.Update(workerComment);
@@ -237,41 +243,53 @@ namespace cs4540_final_project.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("ShowComments", new { id = workerComment.WorkerID });
             }
             return View(workerComment);
         }
 
         // GET: WorkerComments/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
+            WorkerComment workerComment = await _context.WorkerComment
+                        .Include(m => m.Worker)
+                        .FirstOrDefaultAsync(m => m.WorkerCommentID == id);
 
-            var workerComment = await _context.WorkerComment
-                .Include(m => m.Worker)
-                .FirstOrDefaultAsync(m => m.WorkerCommentID == id);
+            // Must be Admin, or original commenter 
+            IdentityUser user = await _userManager.GetUserAsync(HttpContext.User);
+            if (!User.IsInRole("Admin") && (!user.UserName.ToUpper().Equals(workerComment.Name.ToUpper())))
+                return Forbid();
+
             if (workerComment == null)
             {
                 return NotFound();
             }
-
             return View(workerComment);
+
+            return RedirectToAction("ShowComments", new { id = workerComment.WorkerID });
         }
 
         // POST: WorkerComments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var workerComment = await _context.WorkerComment.FindAsync(id);
+
+            // Must be Admin, or original commenter 
+            IdentityUser user = await _userManager.GetUserAsync(HttpContext.User);
+            if (!User.IsInRole("Admin") && (!user.UserName.ToUpper().Equals(workerComment.Name.ToUpper())))
+                return Forbid();
+
             _context.WorkerComment.Remove(workerComment);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("ShowComments", new { id = workerComment.WorkerID });
         }
 
         private bool WorkerCommentExists(int id)

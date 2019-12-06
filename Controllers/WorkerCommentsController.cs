@@ -10,16 +10,21 @@ using System.Collections;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data;
 using System.Security.Claims;
+using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace cs4540_final_project.Controllers
 {
     public class WorkerCommentsController : Controller
     {
         private readonly WorkerContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public WorkerCommentsController(WorkerContext context)
+        public WorkerCommentsController(WorkerContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
+
         }
 
         // GET: WorkerComments
@@ -67,6 +72,7 @@ namespace cs4540_final_project.Controllers
             var workerComment = await _context.WorkerComment
                 .Include(m => m.Worker)
                 .FirstOrDefaultAsync(m => m.WorkerCommentID == id);
+
             if (workerComment == null)
             {
                 return NotFound();
@@ -77,10 +83,13 @@ namespace cs4540_final_project.Controllers
 
 
         // GET: WorkerComments/Create
-        [Authorize(Roles = "Admin")]
-        public IActionResult ClientCreate()
+        [Authorize(Roles = "Admin,Customer")]
+        public async Task<IActionResult> ClientCreate(int? id)
         {
-            ViewDataSelectWorkers();
+            ViewDataSelectOneWorker((int)id);
+            IdentityUser user = await _userManager.GetUserAsync(HttpContext.User);
+            ViewData["Username"] = user.UserName;
+
             return View();
         }
 
@@ -89,24 +98,30 @@ namespace cs4540_final_project.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> ClientCreate([Bind("WorkerCommentID,Name,Comment,StarRating,LastUpdated,WorkerID")] WorkerComment workerComment)
         {
             if (ModelState.IsValid)
             {
                 Worker worker = _context.Worker.Where(m => m.ID == workerComment.WorkerID).FirstOrDefault();
+                workerComment.LastUpdated = DateTime.UtcNow.ToLocalTime();
                 workerComment.Worker = worker;
+
+                IdentityUser currUser = await _userManager.GetUserAsync(HttpContext.User);
+
+                workerComment.Name = currUser.UserName;
 
                 _context.Add(workerComment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("ShowComments", new { id = worker.ID });
             }
-            ViewDataSelectWorkers();
+
+            IdentityUser user = await _userManager.GetUserAsync(HttpContext.User);
+            ViewData["Username"] = user.UserName;
+            ViewDataSelectOneWorker(workerComment.WorkerID);
+
             return View(workerComment);
         }
-
-
-
-
 
         // GET: WorkerComments/Create
         [Authorize(Roles = "Admin")]
@@ -137,12 +152,12 @@ namespace cs4540_final_project.Controllers
             return View(workerComment);
         }
 
+
+        /// <summary>
+        /// Load ViewData[WorkerSelect] with SelectValues. Gathers all Workers in the Database.
+        /// </summary>
         private void ViewDataSelectWorkers()
         {
-            var instructors =
-               (from Instructors in _context.Worker
-                select Instructors.Name).FirstOrDefault();
-
             IEnumerable items = _context.Worker.Select(
                 c => new SelectListItem()
                 {
@@ -150,6 +165,21 @@ namespace cs4540_final_project.Controllers
                     Value = "" + c.ID
                 }).ToList();
 
+            ViewData["WorkerSelect"] = items;
+        }
+
+        /// <summary>
+        /// Load ViewData[WorkerSelect] with SelectValues. Only loads one worker.
+        /// </summary>
+        /// <param name="id">The worker's id to be loaded</param>
+        private void ViewDataSelectOneWorker(int id)
+        {
+            IEnumerable items = _context.Worker.Where(m => m.ID == id).Select(
+                c => new SelectListItem()
+                {
+                    Text = c.Name,
+                    Value = "" + c.ID
+                }).ToList();
             ViewData["WorkerSelect"] = items;
         }
 

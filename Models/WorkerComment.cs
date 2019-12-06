@@ -1,4 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿/**
+ * CS 4540 Web Software Architecture
+ * WorkerComment
+ * Authors: Kevin Nguyen
+ * Date: 12-6-2019
+ * 
+ * Model for WorkerCommments
+ **/
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -18,6 +25,7 @@ namespace cs4540_final_project.Models
 
         public int StarRating { get; set; }
 
+        [DisplayName("Worker")]
         public int WorkerID { get; set; }
 
         public Worker Worker { get; set; }

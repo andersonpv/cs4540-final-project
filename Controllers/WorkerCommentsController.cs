@@ -1,4 +1,13 @@
-﻿using System.Linq;
+﻿/**
+ * CS 4540 Web Software Architecture
+ * WorkerCommentsController
+ * Authors: Kevin Nguyen
+ * Date: 12-6-2019
+ * 
+ * Controller for Worker Comments
+ **/
+
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,15 +36,25 @@ namespace cs4540_final_project.Controllers
 
         }
 
-        // GET: WorkerComments
+        /// <summary>
+        /// Shows a list of all worker comments 
+        /// GET: WorkerComments 
+        /// </summary>
+        /// <returns></returns>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             ViewData["workers"] = _context.Worker.ToList();
             return View(await _context.WorkerComment.OrderBy(m => m.Worker.Name).ToListAsync());
         }
+        
 
-        // GET: WorkerComments
+        /// <summary>
+        /// Displays the comments of a specific worker
+        /// GET: WorkersComments/ShowComments/5
+        /// </summary>
+        /// <param name="id">Worker's id</param>
+        /// <returns></returns>
         public async Task<IActionResult> ShowComments(int? id)
         {
             if (id == null)
@@ -55,12 +74,15 @@ namespace cs4540_final_project.Controllers
             }
 
             return View(workerComment);
-
-            //ViewData["workers"] = _context.Worker.ToList();
-            //return View(await _context.WorkerComment.OrderBy(m => m.Worker.Name).ToListAsync());
         }
 
-        // GET: WorkerComments/Details/5
+
+        /// <summary>
+        /// Shows the Details page of a comment
+        /// GET: WorkerComments/Details/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
@@ -82,7 +104,12 @@ namespace cs4540_final_project.Controllers
         }
 
 
-        // GET: WorkerComments/Create
+        /// <summary>
+        /// Displays the comment page
+        /// GET: WorkerComments/Create 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> ClientCreate(int? id)
         {
@@ -93,9 +120,13 @@ namespace cs4540_final_project.Controllers
             return View();
         }
 
-        // POST: WorkerComments/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        /// <summary>
+        /// Creates the comment and adds it to the database
+        /// POST: WorkerComments/Create
+        /// </summary>
+        /// <param name="workerComment"></param>
+        /// <returns>View to redirect user</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Customer")]
@@ -123,7 +154,11 @@ namespace cs4540_final_project.Controllers
             return View(workerComment);
         }
 
-        // GET: WorkerComments/Create
+
+        /// <summary>
+        /// GET: WorkerComments/Create
+        /// </summary>
+        /// <returns>View to redirect user</returns>
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
@@ -131,9 +166,12 @@ namespace cs4540_final_project.Controllers
             return View();
         }
 
-        // POST: WorkerComments/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        /// <summary>
+        /// POST: WorkerComments/Create
+        /// </summary>
+        /// <param name="workerComment"></param>
+        /// <returns>View to redirect user</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -168,6 +206,7 @@ namespace cs4540_final_project.Controllers
             ViewData["WorkerSelect"] = items;
         }
 
+
         /// <summary>
         /// Load ViewData[WorkerSelect] with SelectValues. Only loads one worker.
         /// </summary>
@@ -183,7 +222,13 @@ namespace cs4540_final_project.Controllers
             ViewData["WorkerSelect"] = items;
         }
 
-        // GET: WorkerComments/Edit/5
+
+        /// <summary>
+        /// Displays the view for editing comments
+        /// GET: WorkerComments/Edit/5 
+        /// </summary>
+        /// <param name="id">Comment id</param>
+        /// <returns>View to redirect user</returns>
         [Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -207,9 +252,14 @@ namespace cs4540_final_project.Controllers
             return View(workerComment);
         }
 
-        // POST: WorkerComments/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        /// <summary>
+        /// Edits the comment based on the User's input.
+        /// POST: WorkerComments/Edit/5 
+        /// </summary>
+        /// <param name="id">ID of comment to be edited</param>
+        /// <param name="workerComment">the new worker comment to repace the old comment</param>
+        /// <returns>View to redirect user</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Customer")]
@@ -249,7 +299,13 @@ namespace cs4540_final_project.Controllers
             return View(workerComment);
         }
 
-        // GET: WorkerComments/Delete/5
+
+        /// <summary>
+        /// Confirms deletion of a comment. 
+        /// GET: WorkerComments/Delete/5
+        /// </summary>
+        /// <param name="id">The ID of the comment to be deleted.</param>
+        /// <returns>View to redirect user</returns>
         [Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -271,11 +327,15 @@ namespace cs4540_final_project.Controllers
                 return NotFound();
             }
             return View(workerComment);
-
-            return RedirectToAction("ShowComments", new { id = workerComment.WorkerID });
         }
 
-        // POST: WorkerComments/Delete/5
+
+        /// <summary>
+        /// Confirms deletion of a comment. 
+        /// POST: WorkerComments/Delete/5
+        /// </summary>
+        /// <param name="id">The ID of the comment to be deleted.</param>
+        /// <returns>View to redirect user</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Customer")]
@@ -292,6 +352,7 @@ namespace cs4540_final_project.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("ShowComments", new { id = workerComment.WorkerID });
         }
+
 
         private bool WorkerCommentExists(int id)
         {

@@ -1,4 +1,13 @@
-﻿using cs4540_final_project.Models;
+﻿/**
+ * CS 4540 Web Software Architecture
+ * Database Initializer
+ * Authors: Kevin Nguyen, Tanner Livingston
+ * Date: 12-6-2019
+ * 
+ * Initializes database with data
+ **/
+
+using cs4540_final_project.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

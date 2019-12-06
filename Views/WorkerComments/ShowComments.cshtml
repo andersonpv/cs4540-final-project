@@ -91,7 +91,7 @@
                     <p>Last updated: @item.LastUpdated</p>
                 </div>
                 <div class="buttons">
-                    @if (User.IsInRole("Admin") || User.Identity.Name == item.Name)
+                    @if (User.IsInRole("Admin") || User.Identity.Name == item.Name) // if admin or user who wrote that comment
                     {
                         <a class="btn" asp-action="Edit" asp-controller="WorkerComments" asp-route-id="@item.WorkerCommentID">Edit</a>
                         <a class="btn" asp-action="Delete" asp-route-id="@item.WorkerCommentID">Delete</a>

@@ -5,46 +5,50 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
-
-<h4>WorkerComment</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Comment" class="control-label"></label>
-                <input asp-for="Comment" class="form-control" />
-                <span asp-validation-for="Comment" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StarRating" class="control-label"></label>
-                <input asp-for="StarRating" class="form-control" />
-                <span asp-validation-for="StarRating" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastUpdated" class="control-label"></label>
-                <input asp-for="LastUpdated" class="form-control" />
-                <span asp-validation-for="LastUpdated" class="text-danger"></span>
-            </div>
-            @{
-                var value = (IEnumerable<SelectListItem>)ViewData["WorkerSelect"];
-            }
-            <div class="form-group">
-                <label asp-for="WorkerID" class="control-label"></label>
-                <select asp-for="WorkerID" class="form-control" asp-items="@value">
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<link rel="stylesheet" href="~/css/login.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+<div class="intro-section">
+    <div class="element-container">
+        <h1 class="title">Write a Comment</h1>
+        <section class="login-section">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Comment" class="control-label"></label>
+                    <input asp-for="Comment" class="form-control" />
+                    <span asp-validation-for="Comment" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StarRating" class="control-label"></label>
+                    <input asp-for="StarRating" class="form-control" />
+                    <span asp-validation-for="StarRating" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastUpdated" class="control-label"></label>
+                    <input asp-for="LastUpdated" class="form-control" />
+                    <span asp-validation-for="LastUpdated" class="text-danger"></span>
+                </div>
+                @{
+                    var value = (IEnumerable<SelectListItem>)ViewData["WorkerSelect"];
+                }
+                <div class="form-group">
+                    <label asp-for="WorkerID" class="control-label"></label>
+                    <select asp-for="WorkerID" class="form-control" asp-items="@value">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </section>
     </div>
 </div>
 

@@ -294,6 +294,11 @@ namespace cs4540_final_project.Controllers
                         throw;
                     }
                 }
+                if (User.IsInRole("Admin"))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                // user is in a Customer role
                 return RedirectToAction("ShowComments", new { id = workerComment.WorkerID });
             }
             return View(workerComment);
@@ -350,6 +355,12 @@ namespace cs4540_final_project.Controllers
 
             _context.WorkerComment.Remove(workerComment);
             await _context.SaveChangesAsync();
+
+            if(User.IsInRole("Admin"))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            // user is in a Customer role
             return RedirectToAction("ShowComments", new { id = workerComment.WorkerID });
         }
 

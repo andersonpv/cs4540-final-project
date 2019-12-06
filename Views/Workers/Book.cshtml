@@ -4,20 +4,19 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" href="~/css/details.css">
+@*<link rel="stylesheet" href="~/css/details.css">*@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" />
 <link rel="stylesheet" href="~/css/Booking.css" />
 <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+@*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />*@
 
 
 <div class="intro-section">
-    <div class="intro-text">
+    @*<div class="intro-text">
 
         <br />
 
 
-        <!-- Intro section -->
         <div class="intro-section">
             <div class="intro-text">
                 <h1>Book an appointment</h1>
@@ -26,9 +25,8 @@
                 <h3>@Html.DisplayNameFor(model => model.Services): @Html.DisplayFor(model => model.Services)</h3>
                 <h3> @Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)</h3>
             </div>
-        </div>
-
-
+        </div>*@
+    <div class="element-container">
         @{var scheduleList = Model.Schedule.ToList();
             int counter = 0;
             string id; }
@@ -154,9 +152,9 @@
                 </div>
             </div>
         }
-
-
     </div>
+
+        
 </div>
 
 @section Scripts

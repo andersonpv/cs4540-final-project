@@ -1,4 +1,4 @@
-﻿@model cs4540_final_project.Models.Worker
+﻿@model Dictionary<Worker, IEnumerable<DaySchedule>>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,20 +16,21 @@
 
         <br />
 
+        @{ var worker = Model.Keys.FirstOrDefault(); }
 
         <!-- Intro section -->
         <div class="intro-section">
             <div class="intro-text">
                 <h1>Book an appointment</h1>
-                <h3>@Html.DisplayFor(model => model.Name)</h3>
-                <h3>@Html.DisplayNameFor(model => model.Job): @Html.DisplayFor(model => model.Job)</h3>
-                <h3>@Html.DisplayNameFor(model => model.Services): @Html.DisplayFor(model => model.Services)</h3>
-                <h3> @Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)</h3>
+                <h3>@Html.DisplayFor(model => worker.Name)</h3>
+                <h3>@Html.DisplayNameFor(model => worker.Job): @Html.DisplayFor(model => worker.Job)</h3>
+                <h3>@Html.DisplayNameFor(model => worker.Services): @Html.DisplayFor(model => worker.Services)</h3>
+                <h3> @Html.DisplayNameFor(model => worker.Description): @Html.DisplayFor(model => worker.Description)</h3>
             </div>
         </div>
 
 
-        @{var scheduleList = Model.Schedule.ToList();
+        @{var scheduleList = Model[worker];
             int counter = 0;
             string id; }
         @foreach (var item in scheduleList)
@@ -44,112 +45,112 @@
                 @{ id = "nine_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '9:00', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.Nine" disabled="@item.Nine">9:00
+                        <input type="checkbox" class="form-check-input" onclick="change_schedule(event, '@id', '9:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Nine" disabled="@item.Nine">9:00
                     </label>
                 </div>
 
                 @{ id = "ninethirty_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '9:30', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.NineThirty" disabled="@item.NineThirty">9:30
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '9:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.NineThirty" disabled="@item.NineThirty">9:30
                     </label>
                 </div>
 
                 @{ id = "ten_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '10:00', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.Ten" disabled="@item.Ten">10:00
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '10:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Ten" disabled="@item.Ten">10:00
                     </label>
                 </div>
 
                 @{ id = "tenthirty_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '10:30', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.TenThirty" disabled="@item.TenThirty">10:30
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '10:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.TenThirty" disabled="@item.TenThirty">10:30
                     </label>
                 </div>
 
                 @{ id = "eleven_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '11:00', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.Eleven" disabled="@item.Eleven">11:00
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '11:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Eleven" disabled="@item.Eleven">11:00
                     </label>
                 </div>
 
                 @{ id = "eleventhirty_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '11:30', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.ElevenThirty" disabled="@item.ElevenThirty">11:30
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '11:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.ElevenThirty" disabled="@item.ElevenThirty">11:30
                     </label>
                 </div>
 
                 @{ id = "twelve_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '12:00', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.Twelve" disabled="@item.Twelve">12:00
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '12:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Twelve" disabled="@item.Twelve">12:00
                     </label>
                 </div>
 
                 @{ id = "twelvethirty_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '12:30', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.TwelveThirty" disabled="@item.TwelveThirty">12:30
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '12:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.TwelveThirty" disabled="@item.TwelveThirty">12:30
                     </label>
                 </div>
 
                 @{ id = "one_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '1:00', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.One" disabled="@item.One">1:00
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '1:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.One" disabled="@item.One">1:00
                     </label>
                 </div>
 
                 @{ id = "onethirty_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '1:30', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.OneThirty" disabled="@item.OneThirty">1:30
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '1:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.OneThirty" disabled="@item.OneThirty">1:30
                     </label>
                 </div>
 
                 @{ id = "two_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '2:00', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.Two" disabled="@item.Two">2:00
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '2:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Two" disabled="@item.Two">2:00
                     </label>
                 </div>
 
                 @{ id = "twothirty_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '2:30', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.TwoThirty" disabled="@item.TwoThirty">2:30
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '2:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.TwoThirty" disabled="@item.TwoThirty">2:30
                     </label>
                 </div>
 
                 @{ id = "three_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '3:00', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.Three" disabled="@item.Three">3:00
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '3:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Three" disabled="@item.Three">3:00
                     </label>
                 </div>
 
                 @{ id = "threethirty_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '3:30', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.ThreeThirty" disabled="@item.ThreeThirty">3:30
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '3:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.ThreeThirty" disabled="@item.ThreeThirty">3:30
                     </label>
                 </div>
 
                 @{ id = "four_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '4:00', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.Four" disabled="@item.Four">4:00
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '4:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Four" disabled="@item.Four">4:00
                     </label>
                 </div>
 
                 @{ id = "fourthirty_id_" + counter;}
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(this, '@id', '4:30', '@date', '@Model.ID', '@item.DayScheduleID')" id="@id" checked="@item.FourThirty" disabled="@item.FourThirty">4:30
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '4:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.FourThirty" disabled="@item.FourThirty">4:30
                     </label>
                 </div>
             </div>

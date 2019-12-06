@@ -50,16 +50,45 @@ namespace cs4540_final_project.Controllers
         {
             if (id == null)
                 return NotFound();
+            
+
+            var todayDate = DateTime.Today;
 
             var worker = await _context.Worker
                 .Include(o => o.Schedule)
                 .FirstOrDefaultAsync(m => m.ID == id);
+
+            var currDate = todayDate;
+            for (int i = 0; i <= 6; i++)
+            {
+                var day = worker.Schedule
+                    .Where(o => o.dateTime == currDate)
+                    .FirstOrDefault();
+
+                if (day == null)
+                {
+                    worker.Schedule.Add(new DaySchedule() { dateTime = currDate });
+                }
+
+                currDate = currDate.AddDays(1);
+            }
+            _context.SaveChanges();
+
+
+            var days = worker.Schedule
+                .Where(ds => ds.dateTime >= todayDate && ds.dateTime <= currDate)
+                .ToList();
+
+           
             if (worker == null)
             {
                 return NotFound();
             }
 
-            return View(worker);
+            return View(new Dictionary<Worker, IEnumerable<DaySchedule>>()
+            {
+                [worker] = days
+            });
         }
 
 
@@ -106,7 +135,7 @@ namespace cs4540_final_project.Controllers
 
             _context.SaveChanges();
 
-            return Json(new { success = false, errorMessage = "" });
+            return Json(new { success = true });
         }
 
 

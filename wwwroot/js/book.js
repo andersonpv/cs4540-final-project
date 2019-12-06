@@ -1,8 +1,10 @@
 ﻿function change_schedule(e, id, time, date, workerID, scheduleID) {
 
+    e.preventDefault();
+
     Swal.fire({
-        title: "Book?",
-        text: "Are you sure you want to book this appointment?",
+        title: "Are you sure you want to book this appointment?",
+        text: "Book for " + date + ' at ' + time + "?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -24,26 +26,28 @@
             ).done(function (result) {
 
                 if (result.success) {
+
+                    $('#' + id).prop('checked', true);
+                    $('#' + id).prop("disabled", true);
+
                     Swal.fire({
                         title: 'Booked!',
-                        text: 'Appointment scheduled for ' + date + 'at ' + time + '.',
+                        text: 'Appointment scheduled for ' + date + ' at ' + time + '.',
                         type: 'success'
                     });
                 }
                 else {
-                    handleError(nameCB, userEmail, role, result.errorMessage);
+                    handleError(id, result.errorMessage);
                 }
 
             }).fail(function (jqXHR, textStatus, errorThrown) {
-                handleError(nameCB, userEmail, role, errorThrown);
-            }).always(function (dataOrjqXHR, textStatus, jqXHRorErrorThrown) {
-                console.log("action taken:" + result);
+                
             });
         }
         else { //Canceled
             // undo 'checked' state
-            if ($('#' + nameCB).prop('checked')) {
-                $('#' + nameCB).prop('checked', false);
+            if ($('#' + id).prop('checked')) {
+                $('#' + id).prop('checked', false);
             }
             else {
                 $('#' + nameCB).prop('checked', true);

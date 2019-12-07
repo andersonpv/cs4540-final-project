@@ -25,6 +25,11 @@ namespace cs4540_final_project.Controllers
             return View(await _context.Worker.ToListAsync());
         }
 
+        public async Task<IActionResult> Overview()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

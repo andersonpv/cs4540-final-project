@@ -47,6 +47,7 @@ namespace cs4540_final_project.Controllers
             return View(worker);
         }
 
+        [Authorize]
         // Book an appointment
         [Authorize(Roles = "Admin,Worker,Customer")]
         public async Task<IActionResult> Book(int? id)
@@ -59,6 +60,11 @@ namespace cs4540_final_project.Controllers
             var worker = await _context.Worker
                 .Include(o => o.Schedule)
                 .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (worker == null)
+            {
+                return NotFound();
+            }
 
             var currDate = todayDate;
             for (int i = 0; i <= 6; i++)
@@ -81,11 +87,6 @@ namespace cs4540_final_project.Controllers
                 .Where(ds => ds.dateTime >= todayDate && ds.dateTime <= currDate)
                 .ToList();
            
-            if (worker == null)
-            {
-                return NotFound();
-            }
-
             return View(new Dictionary<Worker, IEnumerable<DaySchedule>>()
             {
                 [worker] = days

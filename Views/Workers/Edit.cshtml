@@ -1,4 +1,10 @@
-﻿@model cs4540_final_project.Models.Worker
+﻿@*/**
+    * CS 4540 Web Software Architecture
+    * Authors: Anderson Porta
+    * Date: 12-6-2019
+    * Edit worker page
+    **/*@
+@model cs4540_final_project.Models.Worker
 
 @{
     ViewData["Title"] = "Edit";
@@ -42,8 +48,8 @@
 </div>
 
 @*<div>
-    <a asp-action="Index">Back to List</a>
-</div>*@
+        <a asp-action="Index">Back to List</a>
+    </div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

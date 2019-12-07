@@ -1,5 +1,9 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿/*
+    CS 4540 Web Software Architecture
+    CSS for layout page
+    Author: Anderson Porta
+    Date: 12-6-2019
+*/
 
 a.navbar-brand {
     white-space: normal;

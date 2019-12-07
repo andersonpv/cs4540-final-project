@@ -1,6 +1,9 @@
-﻿body {
-
-}
+﻿/*
+    CS 4540 Web Software Architecture
+    CSS for the comments page
+    Author: Anderson Porta
+    Date: 12-6-2019
+*/
 
 .comment-section {
     background: url("../images/comments-background3.jpg");

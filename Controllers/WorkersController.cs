@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cs4540_final_project.Data;
 using cs4540_final_project.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cs4540_final_project.Controllers
 {
@@ -45,6 +46,7 @@ namespace cs4540_final_project.Controllers
             return View(worker);
         }
 
+        [Authorize]
         // Book an appointment
         public async Task<IActionResult> Book(int? id)
         {
@@ -57,6 +59,11 @@ namespace cs4540_final_project.Controllers
             var worker = await _context.Worker
                 .Include(o => o.Schedule)
                 .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (worker == null)
+            {
+                return NotFound();
+            }
 
             var currDate = todayDate;
             for (int i = 0; i <= 6; i++)
@@ -80,11 +87,6 @@ namespace cs4540_final_project.Controllers
                 .ToList();
 
            
-            if (worker == null)
-            {
-                return NotFound();
-            }
-
             return View(new Dictionary<Worker, IEnumerable<DaySchedule>>()
             {
                 [worker] = days

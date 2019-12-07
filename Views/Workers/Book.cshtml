@@ -4,161 +4,358 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" href="~/css/details.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" />
 <link rel="stylesheet" href="~/css/Booking.css" />
 <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
 
+<div class="booking-container">
+    <div class="container booking">
 
-<div class="intro-section">
-    <div class="intro-text">
-
-        <br />
 
         @{ var worker = Model.Keys.FirstOrDefault(); }
 
-        <!-- Intro section -->
-        <div class="intro-section">
-            <div class="intro-text">
-                <h1>Book an appointment</h1>
-                <h3>@Html.DisplayFor(model => worker.Name)</h3>
-                <h3>@Html.DisplayNameFor(model => worker.Job): @Html.DisplayFor(model => worker.Job)</h3>
-                <h3>@Html.DisplayNameFor(model => worker.Services): @Html.DisplayFor(model => worker.Services)</h3>
-                <h3> @Html.DisplayNameFor(model => worker.Description): @Html.DisplayFor(model => worker.Description)</h3>
-            </div>
-        </div>
+        <div class="row">
+            @{var scheduleList = Model[worker];
+                int counter = 0;
+                int colorCounter = 0;
+                string id; }
+            @foreach (var item in scheduleList)
+            {
+
+                var date = item.dateTime.ToString("MM/dd/yyyy");
 
 
-        @{var scheduleList = Model[worker];
-            int counter = 0;
-            string id; }
-        @foreach (var item in scheduleList)
-        {
-            <div class="row">
-                @{ var date = item.dateTime.ToString("MM/dd/yyyy"); }
+                counter++;
 
-                @{
-                    counter++;
-                }
+                string[] colors = { "text-white bg-dark",
+                    "text-white bg-primary",
+                    "text-white bg-secondary",
+                "text-white bg-success",
+                "text-white bg-danger",
+                "text-white bg-warning",
+                "text-white bg-info"};
 
+
+
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
                 @{ id = "nine_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" onclick="change_schedule(event, '@id', '9:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Nine" disabled="@item.Nine">9:00
-                    </label>
-                </div>
-
-                @{ id = "ninethirty_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '9:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.NineThirty" disabled="@item.NineThirty">9:30
-                    </label>
-                </div>
-
-                @{ id = "ten_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '10:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Ten" disabled="@item.Ten">10:00
-                    </label>
-                </div>
-
-                @{ id = "tenthirty_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '10:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.TenThirty" disabled="@item.TenThirty">10:30
-                    </label>
-                </div>
-
-                @{ id = "eleven_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '11:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Eleven" disabled="@item.Eleven">11:00
-                    </label>
-                </div>
-
-                @{ id = "eleventhirty_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '11:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.ElevenThirty" disabled="@item.ElevenThirty">11:30
-                    </label>
-                </div>
-
-                @{ id = "twelve_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '12:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Twelve" disabled="@item.Twelve">12:00
-                    </label>
-                </div>
-
-                @{ id = "twelvethirty_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '12:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.TwelveThirty" disabled="@item.TwelveThirty">12:30
-                    </label>
-                </div>
-
-                @{ id = "one_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '1:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.One" disabled="@item.One">1:00
-                    </label>
-                </div>
-
-                @{ id = "onethirty_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '1:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.OneThirty" disabled="@item.OneThirty">1:30
-                    </label>
-                </div>
-
-                @{ id = "two_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '2:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Two" disabled="@item.Two">2:00
-                    </label>
-                </div>
-
-                @{ id = "twothirty_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '2:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.TwoThirty" disabled="@item.TwoThirty">2:30
-                    </label>
-                </div>
-
-                @{ id = "three_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '3:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Three" disabled="@item.Three">3:00
-                    </label>
-                </div>
-
-                @{ id = "threethirty_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '3:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.ThreeThirty" disabled="@item.ThreeThirty">3:30
-                    </label>
-                </div>
-
-                @{ id = "four_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '4:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Four" disabled="@item.Four">4:00
-                    </label>
-                </div>
-
-                @{ id = "fourthirty_id_" + counter;}
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '4:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.FourThirty" disabled="@item.FourThirty">4:30
-                    </label>
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">9:00 am</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" onclick="change_schedule(event, '@id', '9:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Nine" disabled="@item.Nine">
+                    </p>
                 </div>
             </div>
-        }
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
+                @{ id = "ninethirty_id_" + counter;}
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">9:30 am</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '9:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.NineThirty" disabled="@item.NineThirty">
+                    </p>
+                </div>
 
+            </div>
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
+                @{ id = "ten_id_" + counter;}
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">10:00 am</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '10:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Ten" disabled="@item.Ten">
+                    </p>
+                </div>
+
+            </div>
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
+                @{ id = "tenthirty_id_" + counter;}
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">10:30 am</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '10:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.TenThirty" disabled="@item.TenThirty">
+                    </p>
+                </div>
+
+            </div>
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
+                @{ id = "eleven_id_" + counter;}
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">11:00 am</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '11:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Eleven" disabled="@item.Eleven">
+                    </p>
+                </div>
+
+            </div>
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
+                @{ id = "eleventhirty_id_" + counter;}
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">11:30 am</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '11:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.ElevenThirty" disabled="@item.ElevenThirty">
+                    </p>
+                </div>
+
+            </div>
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
+                @{ id = "twelve_id_" + counter;}
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">12:00 pm</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '12:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Twelve" disabled="@item.Twelve">
+                    </p>
+                </div>
+
+            </div>
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
+                @{ id = "twelvethirty_id_" + counter;}
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">12:30 pm</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '12:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.TwelveThirty" disabled="@item.TwelveThirty">
+                    </p>
+                </div>
+
+            </div>
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
+                @{ id = "one_id_" + counter;}
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">1:00 pm</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '1:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.One" disabled="@item.One">
+                    </p>
+                </div>
+
+            </div>
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
+                @{ id = "onethirty_id_" + counter;}
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">1:30 pm</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '1:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.OneThirty" disabled="@item.OneThirty">
+                    </p>
+                </div>
+
+            </div>
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
+                @{ id = "two_id_" + counter;}
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">2:00 pm</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '2:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Two" disabled="@item.Two">
+                    </p>
+                </div>
+
+            </div>
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
+                @{ id = "twothirty_id_" + counter;}
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">2:30 pm</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '2:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.TwoThirty" disabled="@item.TwoThirty">
+                    </p>
+                </div>
+
+            </div>
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
+                @{ id = "three_id_" + counter;}
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">3:00 pm</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '3:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Three" disabled="@item.Three">
+                    </p>
+                </div>
+
+            </div>
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
+                @{ id = "threethirty_id_" + counter;}
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">3:30 pm</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '3:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.ThreeThirty" disabled="@item.ThreeThirty">
+                    </p>
+                </div>
+
+            </div>
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
+                @{ id = "four_id_" + counter;}
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">4:00 pm</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '4:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Four" disabled="@item.Four">
+                    </p>
+                </div>
+
+            </div>
+            <div class="card m-3 + @colors[colorCounter]" style="width: 18rem;">
+                @{ id = "fourthirty_id_" + counter;}
+                <div class="card-header">@date</div>
+                <div class="card-body">
+                    <h5 class="card-title">4:30 pm</h5>
+                    <p class="card-text">
+                        <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '4:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.FourThirty" disabled="@item.FourThirty">
+                    </p>
+                </div>
+
+            </div>
+                        colorCounter++;
+                    }
+        </div>
 
     </div>
 </div>
+
+@*<div class="intro-section">
+
+
+        @{ var worker = Model.Keys.FirstOrDefault(); }
+
+
+
+        <div class="element-container">
+            @{var scheduleList = Model[worker];
+                int counter = 0;
+                string id; }
+            @foreach (var item in scheduleList)
+            {
+                <div class="row">
+                    @{ var date = item.dateTime.ToString("MM/dd/yyyy"); }
+
+                    @{
+                        counter++;
+                    }
+
+                    <h1>@date</h1>
+                    @{ id = "nine_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" onclick="change_schedule(event, '@id', '9:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Nine" disabled="@item.Nine">9:00
+                        </label>
+                    </div>
+
+                    @{ id = "ninethirty_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '9:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.NineThirty" disabled="@item.NineThirty">9:30
+                        </label>
+                    </div>
+
+                    @{ id = "ten_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '10:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Ten" disabled="@item.Ten">10:00
+                        </label>
+                    </div>
+
+                    @{ id = "tenthirty_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '10:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.TenThirty" disabled="@item.TenThirty">10:30
+                        </label>
+                    </div>
+
+                    @{ id = "eleven_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '11:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Eleven" disabled="@item.Eleven">11:00
+                        </label>
+                    </div>
+
+                    @{ id = "eleventhirty_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '11:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.ElevenThirty" disabled="@item.ElevenThirty">11:30
+                        </label>
+                    </div>
+
+                    @{ id = "twelve_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '12:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Twelve" disabled="@item.Twelve">12:00
+                        </label>
+                    </div>
+
+                    @{ id = "twelvethirty_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '12:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.TwelveThirty" disabled="@item.TwelveThirty">12:30
+                        </label>
+                    </div>
+
+                    @{ id = "one_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '1:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.One" disabled="@item.One">1:00
+                        </label>
+                    </div>
+
+                    @{ id = "onethirty_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '1:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.OneThirty" disabled="@item.OneThirty">1:30
+                        </label>
+                    </div>
+
+                    @{ id = "two_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '2:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Two" disabled="@item.Two">2:00
+                        </label>
+                    </div>
+
+                    @{ id = "twothirty_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '2:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.TwoThirty" disabled="@item.TwoThirty">2:30
+                        </label>
+                    </div>
+
+                    @{ id = "three_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '3:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Three" disabled="@item.Three">3:00
+                        </label>
+                    </div>
+
+                    @{ id = "threethirty_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '3:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.ThreeThirty" disabled="@item.ThreeThirty">3:30
+                        </label>
+                    </div>
+
+                    @{ id = "four_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '4:00', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.Four" disabled="@item.Four">4:00
+                        </label>
+                    </div>
+
+                    @{ id = "fourthirty_id_" + counter;}
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" onclick="change_schedule(event, '@id', '4:30', '@date', '@worker.ID', '@item.DayScheduleID')" id="@id" checked="@item.FourThirty" disabled="@item.FourThirty">4:30
+                        </label>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>*@
 
 @section Scripts
 {

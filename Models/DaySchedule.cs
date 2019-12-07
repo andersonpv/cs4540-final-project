@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**
+ * CS 4540 Web Software Architecture
+ * Database Initializer
+ * Authors: Tanner Livingston
+ * Date: 12-6-2019
+ * 
+ * Represents a Schedule for a worker for a single day
+ **/
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

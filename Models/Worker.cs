@@ -1,4 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿/**
+ * CS 4540 Web Software Architecture
+ * Database Initializer
+ * Authors: Tanner Livingston
+ * Date: 12-6-2019
+ * 
+ * Represents a Worker. Has a naviation property for their schedule.
+ **/
+
+
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

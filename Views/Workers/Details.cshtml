@@ -1,4 +1,12 @@
-﻿@model cs4540_final_project.Models.Worker
+﻿
+ @** CS 4540 Web Software Architecture
+ * Database Initializer
+ * Authors: Tanner Livingston
+ * Date: 12-6-2019
+ *@
+
+
+@model cs4540_final_project.Models.Worker
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
@@ -21,7 +29,7 @@
 
         @if (User.IsInRole("Admin") || User.IsInRole("Worker"))
         {
-            <a class="button-link book-now-btn" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>            
+            <a class="button-link book-now-btn" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
         }
         <a class="button-link book-now-btn" asp-controller="Workers" asp-action="Book" asp-route-id="@Model.ID">Book Now</a>
         <a class="button-link book-now-btn" asp-controller="WorkerComments" asp-action="ShowComments" asp-route-id="@Model.ID">View Comments</a>

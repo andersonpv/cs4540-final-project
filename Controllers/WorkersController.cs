@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cs4540_final_project.Data;
 using cs4540_final_project.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cs4540_final_project.Controllers
 {
@@ -20,6 +21,7 @@ namespace cs4540_final_project.Controllers
         }
 
         // GET: Workers
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Worker.ToListAsync());
@@ -46,12 +48,12 @@ namespace cs4540_final_project.Controllers
         }
 
         // Book an appointment
+        [Authorize(Roles = "Admin,Worker,Customer")]
         public async Task<IActionResult> Book(int? id)
         {
             if (id == null)
                 return NotFound();
             
-
             var todayDate = DateTime.Today;
 
             var worker = await _context.Worker
@@ -78,7 +80,6 @@ namespace cs4540_final_project.Controllers
             var days = worker.Schedule
                 .Where(ds => ds.dateTime >= todayDate && ds.dateTime <= currDate)
                 .ToList();
-
            
             if (worker == null)
             {
@@ -91,7 +92,7 @@ namespace cs4540_final_project.Controllers
             });
         }
 
-
+        [Authorize(Roles = "Admin,Worker,Customer")]
         public async Task<IActionResult> BookAppointment(int? id, int? scheduleID, string time, string date)
         {
             var worker = await _context.Worker
@@ -140,6 +141,7 @@ namespace cs4540_final_project.Controllers
 
 
         // GET: Workers/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -150,6 +152,7 @@ namespace cs4540_final_project.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("ID,Job,Name,Services")] Worker worker)
         {
             if (ModelState.IsValid)
@@ -160,8 +163,9 @@ namespace cs4540_final_project.Controllers
             }
             return View(worker);
         }
-        
+
         // GET: Workers/Edit/5
+        [Authorize(Roles = "Admin,Worker")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -182,6 +186,7 @@ namespace cs4540_final_project.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Worker")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Job,Name,Services")] Worker worker)
         {
             if (id != worker.ID)
@@ -212,7 +217,9 @@ namespace cs4540_final_project.Controllers
             return View(worker);
         }
 
+
         // GET: Workers/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -233,6 +240,7 @@ namespace cs4540_final_project.Controllers
         // POST: Workers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var worker = await _context.Worker.FindAsync(id);

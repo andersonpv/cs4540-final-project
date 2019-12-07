@@ -1,26 +1,24 @@
-﻿.cell {
-    border: 1px solid black;
-    text-align: center;
-    flex-basis: 33.3333%;
-    flex-grow: 0;
-    flex-shrink: 0;
-    -webkit-box-flex: 0;
-    -webkit-tap-highlight-color: #0000;
-    width: 500px;
+﻿
+.booking-container {
+    background-color: #222831;
 }
 
-.intro-section {
-    background-image: url("../images/booking-paga-background.jpg");
-    /*background-color: #333;*/
-    width: 100%;
-    height: 767px;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    position: relative;
-    z-index: 1;
+
+.booking {
+    width: 80% !important;
+    margin: auto;  
+    
 }
 
-.element-container {
+.row {
     padding-top: 150px;
+    padding-bottom: 150px;
 }
+
+.card {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+
+

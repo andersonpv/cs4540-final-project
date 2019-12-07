@@ -4,9 +4,12 @@
     Author: Kevin Nguyen
     Date: 10-18-2019
 */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using cs4540_final_project.Data;
+using cs4540_final_project.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +22,11 @@ namespace CS4540_LOT.Controllers
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly WorkerContext _context;
 
-        public AdminController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public AdminController(WorkerContext context, RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
+            _context = context;
             _roleManager = roleManager;
             _userManager = userManager;
         }
@@ -42,20 +47,19 @@ namespace CS4540_LOT.Controllers
             IdentityUser user = await _userManager.FindByNameAsync(Username);
             IdentityRole UsrRole = await _roleManager.FindByNameAsync(Role);
 
-
             if (AddRemove.Equals("Add"))
             {
                 if (Role.Equals("Worker"))
                 {
-                    // Create new Barber page
-                    //InstructorRelation instructor = _context.InstructorRelation.Where(o => o.Username == Username).FirstOrDefault();
-
-                    // add to customer
-                    //if (instructor == null) // create Instructor course.
-                    //{
-                    //    _context.InstructorRelation.Add(new InstructorRelation() { Username = Username });
-                    //    _context.SaveChanges();
-                    //}
+                    // Create new Worker
+                    
+                    Worker worker = new Worker()
+                    {
+                        Name = Username,
+                        User = user,
+                    };
+                    _context.Add(worker);
+                    _context.SaveChanges();
                 }
 
                 await _userManager.AddToRoleAsync(user, UsrRole.Name);
